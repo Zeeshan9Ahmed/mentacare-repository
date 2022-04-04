@@ -1,6 +1,7 @@
 <?php
 
-    include_once('config.php');
+include_once('config.php');
+include_once('SendEmail.php');
     session_start();
     if(isset($_POST["patient"])){
         registerUser($_POST, $con,'patient');
@@ -18,6 +19,7 @@
         $date_of_birth = $data['date_of_birth'];
         $gender = $data['gender'];
         $occupation = $data['occupation'];
+        $verification_code = '';
 
         $_SESSION['passwordErr'] = passwordValidate($password);
         $_SESSION['emailErr'] = emailValidate($email);
@@ -39,18 +41,21 @@
             echo '<pre>';
             if(empty($_SESSION['emailErr'])){
                 $insert_query = '';
+                $verification_code = random_int(100000, 999999);
+
                 if($user_type == 'patient'){
-                    $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation) values 
-                    ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'")';
+                    $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,verification_code) values 
+                    ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$verification_code.'")';
                 }else{
                     if($user_type == 'doctor'){
                         $speciality = $data['speciality'];
-                        $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,speciality) values 
-                        ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$speciality.'")';
+                        $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,speciality,verification_code) values 
+                        ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$speciality.'","'.$verification_code.'")';
                     }
                 }
                 if(!empty($insert_query)){
                     if( $con->query($insert_query)){
+                        sendVerificationCode($email, $verification_code);
                         $id=  mysqli_insert_id($con);
                         unset($_SESSION['passwordErr']);
                         unset($_SESSION['emailErr']);

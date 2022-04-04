@@ -1,4 +1,8 @@
 <?php include_once('header.php');
+$user_id = '';
+if(isset($_GET['id'])){
+   $user_id = $_GET['id'];
+}
 ?>
 <!-- Page Content -->
 <div class="content">
@@ -20,6 +24,7 @@
                      </div>
                      <!-- Register Form -->
                      <form action="config/further-register.php" method="post">
+                        <input type="hidden" name='user_id' value=<?php echo $user_id;?>>
                         <div class="form-group form-focus">
                            <input type="text"  name="national_id" class="form-control floating" >
                            <label class="focus-label" >National Id</label>

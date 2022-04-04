@@ -1,12 +1,12 @@
 <?php 
     include_once('config.php');
     session_start();
-    // print_r();
     $national_id = $_POST['national_id'];
     $phone_number = $_POST['number'];
     $emergency_number = $_POST['emergency_number'];
     $verification_code = $_POST['verification_code'];
-    $user_id = 11;
+    $user_id = $_POST['user_id'];
+    
     if(empty($national_id)){
         $_SESSION['national_id'] = 'National Id field is required';
     }
