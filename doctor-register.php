@@ -1,4 +1,6 @@
-<?php include_once('header.php') ?>
+<?php include_once('header.php');
+   print_r($_SESSION);
+?>
 <!-- Page Content -->
 <div class="content">
    <div class="container-fluid">
@@ -25,6 +27,8 @@
                         <div class="form-group form-focus">
                            <input type="email" name="email" class="form-control floating"required >
                            <label class="focus-label" >Email</label>
+								   <span class="text text-danger"><?php if(isset($_SESSION['emailErr'])){echo $_SESSION['emailErr']; $_SESSION['emailErr']='';}else{echo '';}?></span>
+
                         </div>
 						<div class="form-group form-focus">
                            <input type="date" name ="date_of_birth" class="form-control floating"required >
@@ -41,6 +45,8 @@
                         <div class="form-group form-focus">
                            <input type="password" name="password" class="form-control floating" required>
                            <label class="focus-label">Create Password</label>
+									<span class="text text-danger"><?php if(isset($_SESSION['passwordErr'])){echo $_SESSION['passwordErr']; $_SESSION['passwordErr']='';}else{echo '';}?></span>
+
                         </div>
 						<div class="form-group form-focus">
                            <input type="text" name="speciality" class="form-control floating" required>

@@ -1,4 +1,7 @@
-<?php include_once("header.php") ?>
+<?php include_once("header.php");
+	// echo '<pre>';
+	print_r($_SESSION);
+?>
 			
 			<!-- Page Content -->
 			<div class="content">
@@ -30,12 +33,15 @@
 												<label class="focus-label" >Date Of Birth</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="email" name="email" class="form-control floating"required >
+												<input type="" name="email" class="form-control floating"required >
 												<label class="focus-label" >Email</label>
+												<span class="text text-danger"><?php if(isset($_SESSION['emailErr'])){echo $_SESSION['emailErr']; $_SESSION['emailErr']='';}else{echo '';}?></span>
 											</div>
 											<div class="form-group form-focus">
 												<input type="password" name="password" class="form-control floating" required>
 												<label class="focus-label">Create Password</label>
+												<span class="text text-danger"><?php if(isset($_SESSION['passwordErr'])){echo $_SESSION['passwordErr']; $_SESSION['passwordErr']='';}else{echo '';}?></span>
+											
 											</div>
 											<div class="form-group form-focus">
 												<input type="text" name="occupation" class="form-control floating" required>

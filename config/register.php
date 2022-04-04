@@ -1,35 +1,102 @@
 <?php
 
     include_once('config.php');
-
+    session_start();
     if(isset($_POST["patient"])){
-        $sql = "INSERT INTO users (`name`,`role`,`date_of_birth`,`gender`,`email`,`password`,`occupation`)VALUES
-         ('".$_POST['name']."','patient','".$_POST['date_of_birth']."','".$_POST['gender']."','".$_POST['email']."','".$_POST['password']."','".$_POST['occupation']."')";
- 
-        if ($con->query($sql) === TRUE) {
-        	header("Location: ../login.php");
-
-        } else {
-        echo "Error: " . $sql . "<br>" . $cnn->error;
+        registerUser($_POST, $con,'patient');
+    }
+    else{
+        if(isset($_POST['doctor'])){
+            registerUser($_POST,$con,'doctor');
         }
     }
 
-    elseif(isset($_POST["doctor"])){
-        $sql = "INSERT INTO users (`name`,`role`,`date_of_birth`,`gender`,`email`,`password`,`speciality`,`doctor_id`)VALUES
-        ('".$_POST['name']."','doctor','".$_POST['date_of_birth']."','".$_POST['gender']."','".$_POST['email']."','".$_POST['password']."','".$_POST['speciality']."','".$_POST['doctor_id']."')";
+    function registerUser($data,$con,$user_type){
+        $password = $data['password'];
+        $email = $data['email'];
+        $name = $data['name'];
+        $date_of_birth = $data['date_of_birth'];
+        $gender = $data['gender'];
+        $occupation = $data['occupation'];
 
-       if ($con->query($sql) === TRUE) {
-        header("Location: ../login.php");
-       } else {
-       echo "Error: " . $sql . "<br>" . $con->error;
-       }
-    }
-    else{
-        echo "wrong form selection";
+        $_SESSION['passwordErr'] = passwordValidate($password);
+        $_SESSION['emailErr'] = emailValidate($email);
+        if(! empty($_SESSION['passwordErr']) || ! empty($_SESSION['emailErr'])){
+            echo 'somet err is there';
+            if (isset($_SERVER["HTTP_REFERER"])) {
+                header("Location: " . $_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if(empty($_SESSION['passwordErr']) && empty($_SESSION['emailErr'])){
+            
+            $_SESSION['emailErr'] = checkEmailExist($email,$con);
+            if(! empty($_SESSION['emailErr'])){
+                if (isset($_SERVER["HTTP_REFERER"])) {
+                    header("Location: " . $_SERVER["HTTP_REFERER"]);
+                }
+            }
+            echo '<pre>';
+            if(empty($_SESSION['emailErr'])){
+                $insert_query = '';
+                if($user_type == 'patient'){
+                    $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation) values 
+                    ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'")';
+                }else{
+                    if($user_type == 'doctor'){
+                        $speciality = $data['speciality'];
+                        $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,speciality) values 
+                        ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$speciality.'")';
+                    }
+                }
+                if(!empty($insert_query)){
+                    if( $con->query($insert_query)){
+                        $id=  mysqli_insert_id($con);
+                        unset($_SESSION['passwordErr']);
+                        unset($_SESSION['emailErr']);
+                        if($user_type == 'patient'){
+                            header("Location: ../further-registration.php?id=".$id);
+                        }else{
+                            header("Location: ../map.php?id=".$id);
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    if(isset($_POST['further-register'])){
-        echo 'dfashf';
+    function passwordValidate($password){
+        if(empty($password)){
+            return 'password is required';
+        }
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $specialChars = preg_match('@[^\w]@', $password);
+    
+        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        return 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+        }
     }
+
+    function emailValidate($email){
+        if (empty($email)) {
+           return "Email is required";
+          } else {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+              return  "Invalid email format";
+            }
+        }
+    }
+
+    function checkEmailExist($email,$con){
+        $findEmail = 'Select users.email from users where email = "'.$email.'" LIMIT 1';
+        $result = $con->query($findEmail);
+        if($result->num_rows > 0){
+            return 'Email Already Exists';
+        }
+
+    }
+    
 
 ?>

@@ -1,4 +1,5 @@
-<?php include_once('header.php') ?>
+<?php include_once('header.php');
+?>
 <!-- Page Content -->
 <div class="content">
    <div class="container-fluid">
@@ -20,20 +21,24 @@
                      <!-- Register Form -->
                      <form action="config/further-register.php" method="post">
                         <div class="form-group form-focus">
-                           <input type="text"  name="national_id" class="form-control floating" required>
+                           <input type="text"  name="national_id" class="form-control floating" >
                            <label class="focus-label" >National Id</label>
+                           <span class="text text-danger"><?php if(isset($_SESSION['national_id'])){echo $_SESSION['national_id']; $_SESSION['national_id']='';}else{echo '';}?></span>
                         </div>
                         <div class="form-group form-focus">
-                           <input type="number" name="number" class="form-control floating"required >
+                           <input type="number" name="number" class="form-control floating" >
                            <label class="focus-label" >Phone number</label>
+                           <span class="text text-danger"><?php if(isset($_SESSION['phone_number'])){echo $_SESSION['phone_number']; $_SESSION['phone_number']='';}else{echo '';}?></span>
                         </div>
                         <div class="form-group form-focus">
-                           <input type="number" name="emergency_number" class="form-control floating"required >
+                           <input type="number" name="emergency_number" class="form-control floating" >
                            <label class="focus-label" >Emergency Contact</label>
+                           <span class="text text-danger"><?php if(isset($_SESSION['emergency_number'])){echo $_SESSION['emergency_number']; $_SESSION['emergency_number']='';}else{echo '';}?></span>
                         </div>
                         <div class="form-group form-focus">
-                           <input type="number" name="verification_code" class="form-control floating"required >
+                           <input type="number" name="verification_code" class="form-control floating" >
                            <label class="focus-label" >Verification Code</label>
+                           <span class="text text-danger"><?php if(isset($_SESSION['verification_code'])){echo $_SESSION['verification_code']; $_SESSION['verification_code']='';}else{echo '';}?></span>
                         </div>
                         <button class="btn btn-primary btn-block btn-lg login-btn" type="submit" name="doctor">Signup</button>
                         
@@ -48,4 +53,6 @@
    </div>
 </div>
 <!-- /Page Content -->
-<?php include_once('footer.php')  ?>
+<?php include_once('footer.php')  
+
+?>

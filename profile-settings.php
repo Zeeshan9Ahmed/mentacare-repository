@@ -1,4 +1,18 @@
-<?php include_once("header.php") ?>
+<?php include_once("header.php");
+include_once('./config/config.php');
+ $user = '';
+if(isset($_SESSION['id'])){
+	$id = $_SESSION['id'];
+	$query = 'Select * from users where id = "'.$id.'" LIMIT 1';
+	$result = $con->query($query);
+	if($result->num_rows > 0){
+		$user = mysqli_fetch_assoc($result);
+		
+	}else{
+		echo 'No user found';
+	}
+}
+?>
 			
 			<!-- Breadcrumb -->
 			<div class="breadcrumb-bar">
@@ -32,10 +46,10 @@
 											<img src="assets/img/patients/patient.jpg" alt="User Image">
 										</a>
 										<div class="profile-det-info">
-											<h3>Richard Wilson</h3>
+											<h3><?php echo $user['name'];?></h3>
 											<div class="patient-details">
-												<h5><i class="fas fa-birthday-cake"></i> 24 Jul 1983, 38 years</h5>
-												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</h5>
+												<h5><i class="fas fa-birthday-cake"></i> <?php echo $user['date_of_birth'];?></h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> <?php echo $user['address'];?></h5>
 											</div>
 										</div>
 									</div>
@@ -93,7 +107,7 @@
 								<div class="card-body">
 									
 									<!-- Profile Settings Form -->
-									<form>
+									<form method="POST" action="config/UserProfileUpdate.php">
 										<div class="row form-row">
 											<div class="col-12 col-md-12">
 												<div class="form-group">
@@ -113,81 +127,48 @@
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<label>First Name</label>
-													<input type="text" class="form-control" value="Richard">
+													<label>Name</label>
+													<input type="text" name="name" class="form-control" value="<?php echo $user['name'];?>">
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<label>Last Name</label>
-													<input type="text" class="form-control" value="Wilson">
+													<label>Email ID</label>
+													<input type="email" readonly class="form-control" value="<?php echo $user['email'] ?>">
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>Date of Birth</label>
 													<div class="cal-icon">
-														<input type="text" class="form-control datetimepicker" value="24-07-1983">
+														<input type="text" name="dob" class="form-control datetimepicker" value="<?php echo $user['date_of_birth'];?>">
 													</div>
 												</div>
 											</div>
-											<div class="col-12 col-md-6">
-												<div class="form-group">
-													<label>Blood Group</label>
-													<select class="form-control select">
-														<option>A-</option>
-														<option>A+</option>
-														<option>B-</option>
-														<option>B+</option>
-														<option>AB-</option>
-														<option>AB+</option>
-														<option>O-</option>
-														<option>O+</option>
-													</select>
-												</div>
-											</div>
-											<div class="col-12 col-md-6">
-												<div class="form-group">
-													<label>Email ID</label>
-													<input type="email" class="form-control" value="richard@example.com">
-												</div>
-											</div>
+											
+											
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>Mobile</label>
-													<input type="text" value="+1 202-555-0125" class="form-control">
+													<input type="text" name="phone_number" value="<?php echo $user['phone_number'];?>" class="form-control">
 												</div>
 											</div>
 											<div class="col-12">
 												<div class="form-group">
 												<label>Address</label>
-													<input type="text" class="form-control" value="806 Twin Willow Lane">
+													<input type="text" name="address" class="form-control" value="<?php echo $user['address']?>">
 												</div>
 											</div>
-											<div class="col-12 col-md-6">
-												<div class="form-group">
-													<label>City</label>
-													<input type="text" class="form-control" value="Old Forge">
-												</div>
+											<div class="col-md-6">
+											<div class="form-group">
+												<label>your gender is :<?php echo $user['gender']; ?></label>
+												<select name="gender" class="form-control select">
+													<option value="Male" <?php if($user['gender'] =="Male"){echo 'selected';}?>>Male</option>
+													<option value="Female" <?php if($user['gender'] =="Female"){echo 'selected';}?>>Female</option>
+												</select>
 											</div>
-											<div class="col-12 col-md-6">
-												<div class="form-group">
-													<label>State</label>
-													<input type="text" class="form-control" value="Newyork">
-												</div>
-											</div>
-											<div class="col-12 col-md-6">
-												<div class="form-group">
-													<label>Zip Code</label>
-													<input type="text" class="form-control" value="13420">
-												</div>
-											</div>
-											<div class="col-12 col-md-6">
-												<div class="form-group">
-													<label>Country</label>
-													<input type="text" class="form-control" value="United States">
-												</div>
-											</div>
+										</div>
+											
 										</div>
 										<div class="submit-section">
 											<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
