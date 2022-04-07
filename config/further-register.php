@@ -6,6 +6,8 @@
     $emergency_number = $_POST['emergency_number'];
     $verification_code = $_POST['verification_code'];
     $user_id = $_POST['user_id'];
+    $lat = $_SESSION['lat'];
+    $lang = $_SESSION['lng'];
     
     if(empty($national_id)){
         $_SESSION['national_id'] = 'National Id field is required';
@@ -27,7 +29,6 @@
     }
         
     if(! empty($national_id) && !empty($phone_number) && ! empty($emergency_number) && ! empty($verification_code) && !empty($user_id)){
-            
         $find_query = 'Select * from users where id = "'.$user_id.'"  LIMIT 1';
         $result = $con->query($find_query);
         if($result->num_rows > 0){
@@ -35,10 +36,17 @@
             $role = $row['role'];
             $code = $row['verification_code'];
             if($code == $verification_code){
-                $update_query = "UPDATE users SET national_id='$national_id' , phone_number = '$phone_number' , 
-                emergency_contact = '$emergency_number' , is_active = '1'
-                WHERE id='$user_id'";
+                $update_query ='';
+                    $update_query .= "UPDATE users SET national_id='$national_id' , phone_number = '$phone_number' , 
+                    emergency_contact = '$emergency_number' , is_active = '1' ";
+                    
+                if($role == 'doctor'){
+                    $update_query .= " , latitude='$lat' , longitude = '$lang'";  
+                }
+                $update_query .= " WHERE id='$user_id'";
                 if($con->query($update_query)){
+                    unset($_SESSION['lat']);
+                    unset($_SESSION['lng']);
                     unset($_SESSION['national_id']);
                     unset($_SESSION['phone_number']);
                     unset($_SESSION['emergency_number']);

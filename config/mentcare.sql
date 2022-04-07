@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2022 at 02:03 PM
+-- Generation Time: Apr 04, 2022 at 08:55 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.15
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -85,24 +85,34 @@ CREATE TABLE `users` (
   `date_of_birth` date DEFAULT NULL,
   `occupation` varchar(211) DEFAULT NULL,
   `speciality` varchar(211) DEFAULT NULL,
-  `doctor_id` varchar(211) DEFAULT NULL,
+  `verification_code` varchar(211) DEFAULT NULL,
   `gender` varchar(211) DEFAULT NULL,
   `status` varchar(211) DEFAULT 'pending',
   `address` varchar(211) DEFAULT NULL,
   `latitude` varchar(211) DEFAULT NULL,
   `longitude` varchar(211) DEFAULT NULL,
-  `fees` varchar(211) DEFAULT NULL
+  `fees` varchar(211) DEFAULT NULL,
+  `national_id` varchar(255) NOT NULL,
+  `phone_number` varchar(255) NOT NULL,
+  `emergency_contact` varchar(255) NOT NULL,
+  `is_active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role`, `name`, `email`, `phone`, `password`, `date_of_birth`, `occupation`, `speciality`, `doctor_id`, `gender`, `status`, `address`, `latitude`, `longitude`, `fees`) VALUES
-(8, 'doctor', 'yasir', 'user@gmail.com', '03003632781', '12345678', '1992-06-18', 'ocp', 'aaaa', NULL, 'Male', 'pending', '0', '0', '0', '200'),
-(9, 'doctor', 'user1', 'user1@gmail.com', '03003632781', 'Abcd1234', '2022-04-23', 'ocp', 'ccddddss', NULL, 'male', 'pending', '0', '0', '0', '0'),
-(10, 'doctor', 'user', 'user@gmail.com', '03003632781', 'Abcd1234', '1992-06-18', 'ocp', 'kkkkkkk', NULL, 'male', 'pending', '0', '0', '0', '0'),
-(11, 'patient', 'use51', 'user4@gmail.com', '03003632781', 'Abcd1234', '2022-04-23', 'ocp', NULL, NULL, 'male', 'pending', '0', '0', '0', '0');
+INSERT INTO `users` (`id`, `role`, `name`, `email`, `phone`, `password`, `date_of_birth`, `occupation`, `speciality`, `verification_code`, `gender`, `status`, `address`, `latitude`, `longitude`, `fees`, `national_id`, `phone_number`, `emergency_contact`, `is_active`) VALUES
+(8, 'doctor', 'yasir', 'user@gmail.com', '03003632781', '12345678', '1992-06-18', 'ocp', 'aaaa', NULL, 'Male', 'pending', '0', '0', '0', '200', '', '', '', 0),
+(9, 'doctor', 'user1', 'user1@gmail.com', '03003632781', 'Abcd1234', '2022-04-23', 'ocp', 'ccddddss', NULL, 'male', 'pending', '0', '0', '0', '0', '', '', '', 0),
+(10, 'doctor', 'user', 'user@gmail.com', '03003632781', 'Abcd1234', '1992-06-18', 'ocp', 'kkkkkkk', NULL, 'male', 'pending', '0', '0', '0', '0', '', '', '', 0),
+(11, 'patient', 'use51', 'user4@gmail.com', '03003632781', 'abc', '2022-04-23', 'ocp', NULL, NULL, 'male', 'pending', '0', '0', '0', '0', '', '', '', 0),
+(12, 'doctor', 'Sacha Douglas', '', NULL, '', '0000-00-00', NULL, '', '', '', 'pending', NULL, NULL, NULL, NULL, '', '', '', 0),
+(13, 'patient', 'Nissim Hendricks', 'xolaku@mailinator.com', NULL, 'Pa$$w0rd!', '2013-08-01', 'Pariatur Rem in non', NULL, NULL, 'male', 'pending', NULL, NULL, NULL, NULL, '', '', '', 0),
+(14, 'patient', 'Bevis Cannon', 'tygamej@mailinator.com', NULL, 'Pa$$w0rd!', '2019-07-09', 'Vitae sint veniam ', NULL, '331516', 'male', 'pending', NULL, NULL, NULL, NULL, 'Tempor cupidatat qui', '954', '365', 1),
+(15, 'doctor', 'Brooke Robbins', 'walicaquta@mailinator.com', NULL, 'Pa$$w0rd!', '1978-03-09', '', 'Eum molestias dolore', NULL, 'male', 'pending', NULL, NULL, NULL, NULL, '', '', '', 0),
+(16, 'patient', 'Eleanor Ruiz', 'zefaci@mailinator.com', NULL, 'Pa$$w0rd!', '2002-06-21', 'Hic amet suscipit i', NULL, '493302', 'male', 'pending', NULL, NULL, NULL, NULL, 'Natus nihil consecte', '851', '189', 1),
+(17, 'doctor', 'Blaine Pope', 'buva@mailinator.com', NULL, 'Pa$$w0rd!', '1976-10-31', '', 'Earum in iste velit ', '972279', 'male', 'pending', NULL, NULL, NULL, NULL, '', '', '', 0);
 
 --
 -- Indexes for dumped tables
@@ -146,7 +156,7 @@ ALTER TABLE `clinics`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

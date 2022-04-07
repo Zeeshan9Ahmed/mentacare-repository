@@ -1,148 +1,103 @@
-
-
-<script type="text/javascript">
-  $(document).ready(function() {
-     $("#gadres")
-      .css("color", "#555555")
-      .focus(function(){
-          $(this).css("color", "black"); $(this).css("background-color", "#ffffff");$(this).select();
-      })
-      .blur(function(){
-          $(this).css("color", "#555555"); $(this).css("background-color", "#fafafa");
-      });
-  $("#gadres").keyup(function(event){
-      if(event.keyCode == 13){
-          codeAddress();
-      }
-  });
-   });
-</script>
-
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript">
-  var map;
-  	var geocoder;
-  	var marker;
-  	function initialize() {
-      var latlng = new google.maps.LatLng(1.10, 1.10);
-      var myOptions = {
-        zoom: 5,
-        center: latlng,
-        mapTypeId: google.maps.MapTypeId.HYBRID 
-      };
-      map = new google.maps.Map(document.getElementById("latlongmap"),
-          myOptions);
-    geocoder = new google.maps.Geocoder();
-    marker = new google.maps.Marker({
-        position: latlng, 
-        map: map
-    });
-    
-  map.streetViewControl=false;
-  	google.maps.event.addListener(map, 'click', function(event) {
-      marker.setPosition(event.latLng);
-      var yeri = event.latLng;
-      document.getElementById('lat').value=yeri.lat().toFixed(6);
-  	document.getElementById('lng').value=yeri.lng().toFixed(6);
-    });
-  google.maps.event.addListener(map, 'mousemove', function(event) {
-  var yeri = event.latLng;
-  document.getElementById("mlat").value = yeri.lat().toFixed(6);
-  document.getElementById("mlong").value = yeri.lng().toFixed(6);
-  });
-  codeAddress();
+<?php
+$id='';
+  if(isset($_GET['id'])){
+    $id=$_GET['id'];
   }
-  
-  function codeAddress() {
-      var address = document.getElementById("gadres").value;
-      geocoder.geocode( { 'address': address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-  		document.getElementById('lat').value=results[0].geometry.location.lat().toFixed(6);
-  		document.getElementById('lng').value=results[0].geometry.location.lng().toFixed(6);
-  var latlong = "(" + results[0].geometry.location.lat().toFixed(6) + " , " +
-  	+ results[0].geometry.location.lng().toFixed(6) + ")";
-  
-   var infowindow = new google.maps.InfoWindow({
-          content: latlong
-      });
-  
-          marker.setPosition(results[0].geometry.location);
-          map.setZoom(16);
-  
-  google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map,marker);
-      });
-  
-        } else {
-          alert("Lat and long cannot be found.");
-        }
-      });
-    }
-</script>
+?>
+<br>
+  <form method="post" action="further-registration.php?id=<?php echo $id;?>">
+  <input type="text" id="html" name="add" onchange="initMap(this.value)">
+  <input type="submit" name="submit" />
+</form>
+<br>
+<?php
+session_start();
 
-</head>
+function getGeoCode($address)
+{
+        // geocoding api url
+        $url = "https://maps.google.com/maps/api/geocode/json?address=$address&key=AIzaSyDo3mYCVxXIZWS2VNkvx2aL9t2SSzB8Na8";
+        // send api request
+        $geocode = file_get_contents($url);
+        $json = json_decode($geocode);
+        $data['lat'] = $json->results[0]->geometry->location->lat;
+        $data['lng'] = $json->results[0]->geometry->location->lng;
 
-<body onload="initialize()">
-  <div class="container_12" id="header">
-    <div class="clear"></div>
-    <div class="grid_4">
-      <div class="box">
-        <input id="gadres" type="textbox" size="24" value="Hampton, VA" />
-        <input type="button" value="Find" title="Find Lat & Long" onclick="codeAddress();" />
-      </div>
-      <strong>Search by the name of the location you'd like the latitude and longitude</strong> (i.e. Eiffel Tower, or Great Wall of China) <strong>or Click on map to get latitude and longitude coordinates.</strong>
-      <div class="box">
-        <table>
-          <tr>
-            <td><strong>Latitude:</strong></td>
-            <td>
-              <input type="text" name="lat" id="lat" value="latvalue" />
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Longitude:</strong></td>
-            <td>
-              <input type="text" name="lng" id="lng" value="lngvalue" />
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="box">
-        <h3>Mouse Over the map below for your latitude and longitude.</h3>
-        <table>
-          <tr>
-            <td><strong>Lat:</strong></td>
-            <td>
-              <input type="text" name="mlat" id="mlat" value="0" />
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Long:</strong></td>
-            <td>
-              <input type="text" name="mlong" id="mlong" value="0" />
-            </td>
-          </tr>
-        </table>
-      </div>
-      <br />
-      <div style="clear:both;"></div>
-      <br />
-    </div>
-    <div class="grid_8">
-      <div id="latlongmap" style="width:100%; height:480px;">
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript">
-    function process()
-    {
-    var xxhi = parseInt(document.getElementById("lng").value)+5;
-    var xxlo = parseInt(document.getElementById("lng").value)-5;
-    var yyhi = parseInt(document.getElementById("lat").value)+5;
-    var yylo = parseInt(document.getElementById("lat").value)-5;
-    var url="http://mynasadata.larc.nasa.gov/las/UI.vm#panelHeaderHidden=false;differences=false;autoContour=false;globalMin=0.018759;globalMax=99.6;xCATID=2B0BBF6A0A4C3C7A7D051B183657F99F;xDSID=cloud_coverage;varid=cldarea_total_daynight_mon-id-9bce6de9df;imageSize=auto;over=xy;compute=Nonetoken;tlo=15-Jan-2013;thi=15-Jan-2013;catid=2B0BBF6A0A4C3C7A7D051B183657F99F;dsid=cloud_coverage;varid=cldarea_total_daynight_mon-id-9bce6de9df;avarcount=0;xlo=" + xxlo + ";xhi=" + xxhi + ";ylo=" + yylo + ";yhi=" + yyhi + ";operation_id=Plot_2D_XY_zoom;view=xy";
-    location.href=url;
-    return false;
-    }
-  </script>
+        $_SESSION["lat"] = $data['lat'];
+        $_SESSION["lng"] = $data['lng'];
+      
+        return $data;
+}
+$address = isset($_GET['add']) ? $_GET['add'] : 'karachi';
+
+
+$address = str_replace(' ', '+', $address);
+$result = getGeoCode($address);
+
+// produces output
+// Latitude: 40.6781784, Longitude: -73.9441579
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geocoding service</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    
+  <div id="map"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script>
+var geocoder;
+      var map;
+    
+
+var address = "Orlando World Center Marriott";
+      
+      function initMap(val) {
+          address = val;
+       
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat:28.3605, lng: 81.5101}
+        });
+        geocoder = new google.maps.Geocoder();
+        codeAddress(geocoder, map);
+      }
+      initMap();
+     
+      function codeAddress(geocoder, map) {
+        
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+          } else {
+            console.log('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+  
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDo3mYCVxXIZWS2VNkvx2aL9t2SSzB8Na8&callback=initMap">
+    </script>
+  </body>
+</html>
