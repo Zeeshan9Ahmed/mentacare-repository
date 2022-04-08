@@ -2,19 +2,23 @@
 	include_once("config/config.php");
 
 	include_once("header.php");
-
-	if(isset($_POST["submit"])){
 	
-		$sql = "INSERT INTO appointments (`patient_name`,`patient_email`,`patient_phone`,`date`)VALUES
-		('".$_POST['name']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['date']."')";
-
-	   if ($con->query($sql) === TRUE) {
-		   header("Location: booking-success.php");	
-
-	   } else {
-	   echo "Error: " . $sql . "<br>" . $con->error;
-	   }
+	if(isset($_GET['id'])){
+		$_SESSION['doctor_id'] = $_GET['id'];
+		
+		if(!isset($_SESSION['login_data'])){
+			header("Location: login.php?message=Please login first to make an Appoinment");
+		}
+		
+			
 	}
+	
+		$doctor_query = 'Select * from users where id ="'.$_SESSION['doctor_id'].'"';
+		$user_query = 'Select * from users where id ="'.$_SESSION['login_data']['id'].'"';
+		$doctor = $con->query($doctor_query);
+		$patient = $con->query($user_query);
+		
+	
 ?>
 			
 			<!-- Breadcrumb -->
@@ -45,45 +49,53 @@
 								<div class="card-body">
 								
 									<!-- Checkout Form -->
-									<form method="post" action="">
+									<form method="post" action="config/createAppoinment.php">
 										<!-- Personal Information -->
 										<div class="info-widget">
 											<h4 class="card-title">Appointment Time</h4>
 											<div class="row">
 											<div class="col-md-6 col-sm-12">
 											
-											<input class="form-control" type="datetime-local"  name="date">
+											<input class="form-control" type="datetime-local"  name="date" required>
 											
 										</div>	
 										</div>
 										</div>
 
 										<!-- Personal Information -->
+										<?php
+											if($patient->num_rows > 0){
+											while($row = $patient->fetch_assoc()){
+										?>
 										<div class="info-widget">
 											<h4 class="card-title">Personal Information</h4>
 											<div class="row">
 												<div class="col-md-6 col-sm-12">
 													<div class="form-group card-label">
-														<label>First Name</label>
-														<input class="form-control" name="name" type="text">
+														<label>Name</label>
+														<input class="form-control" value="<?php echo $row['name'];?>" name="name" type="text">
 													</div>
 												</div>
 												<div class="col-md-6 col-sm-12">
 													<div class="form-group card-label">
 														<label>Phone</label>
-														<input class="form-control" name="phone" type="text">
+														<input class="form-control" value="<?php echo $row['phone'];?>" name="phone" type="text">
 													</div>
 												</div>
 												<div class="col-md-12 col-sm-12">
 													<div class="form-group card-label">
 														<label>Email</label>
-														<input class="form-control" name="email" type="email">
+														<input class="form-control" value="<?php echo $row['email'];?>" name="email" type="email">
 													</div>
 												</div>
 												
 											</div>
-											<div class="exist-customer">Existing Customer? <a href="#">Click here to login</a></div>
+											
 										</div>
+										<?php
+											}
+										}
+										?>
 										<!-- /Personal Information -->
 										
 										<div class="payment-widget">
@@ -102,12 +114,7 @@
 											
 											
 											<!-- Terms Accept -->
-											<div class="terms-accept">
-												<div class="custom-checkbox">
-												   <input type="checkbox" id="terms_accept">
-												   <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
-												</div>
-											</div>
+											
 											<!-- /Terms Accept -->
 											
 											<!-- Submit Section -->
@@ -133,27 +140,28 @@
 									<h4 class="card-title">Booking Summary</h4>
 								</div>
 								<div class="card-body">
-								
+									<?php 
+										if($doctor->num_rows > 0){
+										while($row = $doctor->fetch_assoc()){
+										$_SESSION['fees'] = $row['fees'];
+									?>
 									<!-- Booking Doctor Info -->
 									<div class="booking-doc-info">
 										<a href="doctor-profile.php" class="booking-doc-img">
 											<img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
 										</a>
 										<div class="booking-info">
-											<h4><a href="doctor-profile.php">Dr. Darren Elder</a></h4>
+											<h4><a href="doctor-profile.php"><?php echo $row['name'];?></a></h4>
 											<div class="rating">
-												<i class="fas fa-star filled"></i>
-												<i class="fas fa-star filled"></i>
-												<i class="fas fa-star filled"></i>
-												<i class="fas fa-star filled"></i>
-												<i class="fas fa-star"></i>
-												<span class="d-inline-block average-rating">35</span>
+												
+												<span class=""><?php echo $row['phone'];?></span>
 											</div>
 											<div class="clinic-details">
-												<p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p>
+												<p class="doc-location"><i class="fas fa-map-marker-alt"></i> <?php echo $row['address'];?></p>
 											</div>
 										</div>
 									</div>
+									
 									<!-- Booking Doctor Info -->
 									
 									<div class="booking-summary">
@@ -162,7 +170,7 @@
 												<ul class="booking-total-list">
 													<li>
 														<span>Total</span>
-														<span class="total-cost">$160</span>
+														<span class="total-cost">$<?php echo $row['fees'];?></span>
 													</li>
 												</ul>
 											</div>
@@ -171,7 +179,10 @@
 								</div>
 							</div>
 							<!-- /Booking Summary -->
-							
+							<?php
+										}
+										}
+									?>
 						</div>
 					</div>
 

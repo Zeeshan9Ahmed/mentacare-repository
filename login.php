@@ -7,28 +7,38 @@
 
     $message="";
     if(count($_POST)>0) {
-
         $result = mysqli_query($con,"SELECT * FROM users WHERE email='" . $_POST["email"] . "' and password = '". $_POST["password"]."'");
         $row  = mysqli_fetch_array($result);
         if(is_array($row)) {
-		
-        $_SESSION["id"] = $row['id'];
-        $_SESSION["name"] = $row['name'];
-		$_SESSION["role"] = $row['role'];
+			echo '<pre>';
+		$_SESSION['login_data'] = ['role' => $row['role'] ,'id' => $row['id'], 'name' => $row['name']];
         } else {
          $message = "Invalid Username or Password!";
         }
     }
-   if(isset($_SESSION["role"])){
-	if($_SESSION["role"] == "doctor") {
+   
+	if(isset($_SESSION["login_data"]))
+	{
+		$role =$_SESSION['login_data']['role'];
+
+		if($role == "doctor") {
 	
 		header("Location: doctor-dashboard.php");
 
     }
-	else if($_SESSION["role"] == "patient"){
-		header("Location: patient-dashboard.php");
-
+	else{
+		if($role == "patient"){
+			if(isset($_SESSION['doctor_id'])){
+			    header("Location: booking.php");
+			}else{
+      			header("Location: patient-dashboard.php");
+			}
+			
+			
+	
+		}
 	}
+	 
    }
 ?>
 			

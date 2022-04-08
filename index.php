@@ -1,7 +1,12 @@
 <?php 
 include_once("header.php");
 include_once("config/config.php");
-
+	$qeury = 'select * from users where role = "doctor"';
+	$result = $con->query($qeury);
+	// echo '<pre>';
+	echo 'fdjas;';
+	// print_r($result);
+	// exit;
 ?>
 			
 			<!-- Home Banner -->
@@ -21,46 +26,30 @@ include_once("config/config.php");
 			<br>
 			<div class="container-fluid">
 			<div class="row">
-			<div class="col-sm-3">
-				<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-				</div>
-			</div>
-
+			
+			<?php 
+				if($result->num_rows > 0){
+				while($row = $result->fetch_assoc()){
+				
+			?>
 			<div class="col-sm-3">
 				<div class="card">
 				<img src="https://www.logogrand.com/sample_logo/images/3d/11.jpg" class="card-img-top" alt="...">
 
 				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<h5 class="card-title"><?php echo $row['name']?></h5>
+					<p class="card-text"><?php echo $row['speciality']?></p>
+					<p class="card-text"><?php echo $row['fees']?></p>
+					<a href="booking.php?id=<?php echo $row['id'];?>" class="btn btn-primary">Book an Appointment</a>
 				</div>
 				</div>
-			</div>		</div>
-		
+			</div>
+			<?php
+				}
+				}
+				?>
+		</div>
+				
 			</div>
 			
 		<?php include_once("footer.php") ?>
