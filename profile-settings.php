@@ -1,8 +1,16 @@
 <?php include_once("header.php");
 include_once('./config/config.php');
  $user = '';
-if(isset($_SESSION['id'])){
-	$id = $_SESSION['id'];
+ if(!isset($_SESSION['login_data'])){
+		header("Location: login.php");
+	}else{
+		if(($_SESSION['login_data']['role'] !== 'patient')){
+			header("Location: login.php");
+			
+		}
+	}	
+
+	$id = $_SESSION['login_data']['id'];
 	$query = 'Select * from users where id = "'.$id.'" LIMIT 1';
 	$result = $con->query($query);
 	if($result->num_rows > 0){
@@ -11,7 +19,7 @@ if(isset($_SESSION['id'])){
 	}else{
 		echo 'No user found';
 	}
-}
+
 ?>
 			
 			<!-- Breadcrumb -->
@@ -36,71 +44,10 @@ if(isset($_SESSION['id'])){
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
-					
-						<!-- Profile Sidebar -->
-						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-							<div class="profile-sidebar">
-								<div class="widget-profile pro-widget-content">
-									<div class="profile-info-widget">
-										<a href="#" class="booking-doc-img">
-											<img src="assets/img/patients/patient.jpg" alt="User Image">
-										</a>
-										<div class="profile-det-info">
-											<h3><?php echo $user['name'];?></h3>
-											<div class="patient-details">
-												<h5><i class="fas fa-birthday-cake"></i> <?php echo $user['date_of_birth'];?></h5>
-												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> <?php echo $user['address'];?></h5>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="dashboard-widget">
-									<nav class="dashboard-menu">
-										<ul>
-											<li>
-												<a href="#">
-													<i class="fas fa-columns"></i>
-													<span>Dashboard</span>
-												</a>
-											</li>
-											<li>
-												<a href="favourites.php">
-													<i class="fas fa-bookmark"></i>
-													<span>Favourites</span>
-												</a>
-											</li>
-											<li>
-												<a href="chat.php">
-													<i class="fas fa-comments"></i>
-													<span>Message</span>
-													<small class="unread-msg">23</small>
-												</a>
-											</li>
-											<li class="active">
-												<a href="profile-settings.php">
-													<i class="fas fa-user-cog"></i>
-													<span>Profile Settings</span>
-												</a>
-											</li>
-											<li>
-												<a href="change-password.php">
-													<i class="fas fa-lock"></i>
-													<span>Change Password</span>
-												</a>
-											</li>
-											<li>
-												<a href="index-2.php">
-													<i class="fas fa-sign-out-alt"></i>
-													<span>Logout</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
-								</div>
-
-							</div>
-						</div>
-						<!-- /Profile Sidebar -->
+						<?php 
+						include_once('patient-profile-side-bar.php');
+						?>
+						
 						
 						<div class="col-md-7 col-lg-8 col-xl-9">
 							<div class="card">

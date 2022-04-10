@@ -19,6 +19,7 @@ include_once('SendEmail.php');
         $date_of_birth = $data['date_of_birth'];
         $gender = $data['gender'];
         $occupation = $data['occupation'];
+        $fees = $data['fees'];
         $verification_code = '';
 
         $_SESSION['passwordErr'] = passwordValidate($password);
@@ -49,8 +50,8 @@ include_once('SendEmail.php');
                 }else{
                     if($user_type == 'doctor'){
                         $speciality = $data['speciality'];
-                        $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,speciality,verification_code) values 
-                        ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$speciality.'","'.$verification_code.'")';
+                        $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,speciality,verification_code,fees) values 
+                        ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$speciality.'","'.$verification_code.'","'.$fees.'")';
                     }
                 }
                 if(!empty($insert_query)){

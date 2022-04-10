@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2022 at 08:55 PM
+-- Generation Time: Apr 10, 2022 at 05:11 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -31,10 +31,10 @@ CREATE TABLE `appointments` (
   `id` int(11) NOT NULL,
   `doctor_id` int(11) DEFAULT NULL,
   `patient_id` int(11) DEFAULT NULL,
-  `date` int(11) DEFAULT NULL,
+  `booking_date` varchar(11) DEFAULT NULL,
   `amount` varchar(211) DEFAULT NULL,
-  `patient_name` varchar(211) DEFAULT NULL,
-  `patient_email` varchar(211) DEFAULT NULL,
+  `booking_time` varchar(211) DEFAULT NULL,
+  `status` varchar(211) DEFAULT NULL,
   `patient_phone` varchar(211) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -42,10 +42,12 @@ CREATE TABLE `appointments` (
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `doctor_id`, `patient_id`, `date`, `amount`, `patient_name`, `patient_email`, `patient_phone`) VALUES
-(1, NULL, NULL, 2022, NULL, 'kashif', 'user@gmail.com', '40773555'),
-(2, NULL, NULL, 2022, NULL, 'abc', 'yasirkhaskheli1@gmail.com', '03003632781'),
-(3, NULL, NULL, 2022, NULL, 'ali', 'yasirkhaskheli1@gmail.com', '40773555');
+INSERT INTO `appointments` (`id`, `doctor_id`, `patient_id`, `booking_date`, `amount`, `booking_time`, `status`, `patient_phone`) VALUES
+(7, 8, 11, '2022-04-10', '200', '03:00:00pm', 'pending', NULL),
+(8, 8, 11, '2022-04-16', '200', '03:00:00pm', 'pending', NULL),
+(9, 8, 11, '2022-04-16', '200', '03:00:00pm', 'pending', NULL),
+(10, 8, 11, '2022-04-16', '200', '03:00:00pm', 'pending', NULL),
+(11, 8, 11, '2022-04-16', '200', '03:00:00pm', 'pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -112,7 +114,7 @@ INSERT INTO `users` (`id`, `role`, `name`, `email`, `phone`, `password`, `date_o
 (14, 'patient', 'Bevis Cannon', 'tygamej@mailinator.com', NULL, 'Pa$$w0rd!', '2019-07-09', 'Vitae sint veniam ', NULL, '331516', 'male', 'pending', NULL, NULL, NULL, NULL, 'Tempor cupidatat qui', '954', '365', 1),
 (15, 'doctor', 'Brooke Robbins', 'walicaquta@mailinator.com', NULL, 'Pa$$w0rd!', '1978-03-09', '', 'Eum molestias dolore', NULL, 'male', 'pending', NULL, NULL, NULL, NULL, '', '', '', 0),
 (16, 'patient', 'Eleanor Ruiz', 'zefaci@mailinator.com', NULL, 'Pa$$w0rd!', '2002-06-21', 'Hic amet suscipit i', NULL, '493302', 'male', 'pending', NULL, NULL, NULL, NULL, 'Natus nihil consecte', '851', '189', 1),
-(17, 'doctor', 'Blaine Pope', 'buva@mailinator.com', NULL, 'Pa$$w0rd!', '1976-10-31', '', 'Earum in iste velit ', '972279', 'male', 'pending', NULL, NULL, NULL, NULL, '', '', '', 0);
+(17, 'doctor', 'Blaine Pope', 'buva@mailinator.com', NULL, 'Pa$$w0rd!', '1976-10-31', '', 'Earum in iste velit ', '972279', 'male', 'pending', NULL, '24.8607343', '67.0011364', NULL, 'Voluptatem Est sapi', '974', '326', 1);
 
 --
 -- Indexes for dumped tables
@@ -144,7 +146,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `clinics`

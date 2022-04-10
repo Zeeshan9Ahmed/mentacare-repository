@@ -3,10 +3,7 @@ include_once("header.php");
 include_once("config/config.php");
 	$qeury = 'select * from users where role = "doctor"';
 	$result = $con->query($qeury);
-	// echo '<pre>';
-	echo 'fdjas;';
-	// print_r($result);
-	// exit;
+	
 ?>
 			
 			<!-- Home Banner -->

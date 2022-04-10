@@ -120,7 +120,7 @@ session_start();
 								<a href="admin/index.php.php" target="_blank">Admin</a>
 							</li> -->
 							<?php 
-								if(isset($_SESSION["id"])){
+								if(isset($_SESSION["login_data"])){
 									?>
 									<li class="login-link">
 								<a href="logout.php">Logout</a>
@@ -149,7 +149,7 @@ session_start();
 							</div>
 						</li>
 						<?php 
-								if(isset($_SESSION["id"])){
+								if(isset($_SESSION["login_data"])){
 									?>
 									<li class="login-link">
 								<a href="logout.php">Logout</a>

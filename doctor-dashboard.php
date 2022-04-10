@@ -1,5 +1,15 @@
 <?php include_once('header.php'); 
 	include_once('config/config.php');
+	if(!isset($_SESSION['login_data'])){
+		header("Location: login.php");
+	}else{
+		if(($_SESSION['login_data']['role'] !== 'doctor')){
+			print_r('daf');
+			header("Location: login.php");
+			
+		}
+	}
+
 $appointments = "select appointments.booking_date , appointments.booking_time,appointments.amount,appointments.status, users.id , users.name  from appointments INNER JOIN users on appointments.patient_id = users.id where doctor_id =
 '".$_SESSION['login_data']['id']."' and appointments.booking_date > '".date("Y-m-d") ."'";
 
@@ -29,98 +39,7 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 					<div class="row">
 						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 							
-							<!-- Profile Sidebar -->
-							<div class="profile-sidebar">
-								<div class="widget-profile pro-widget-content">
-									<div class="profile-info-widget">
-										<a href="#" class="booking-doc-img">
-											<img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
-										</a>
-										<div class="profile-det-info">
-											<h3>Dr. Darren Elder</h3>
-											
-											<div class="patient-details">
-												<h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="dashboard-widget">
-									<nav class="dashboard-menu">
-										<ul>
-											<li class="active">
-												<a href="doctor-dashboard.php">
-													<i class="fas fa-columns"></i>
-													<span>Dashboard</span>
-												</a>
-											</li>
-											<li>
-												<a href="appointments.php">
-													<i class="fas fa-calendar-check"></i>
-													<span>Appointments</span>
-												</a>
-											</li>
-											<li>
-												<a href="my-patients.php">
-													<i class="fas fa-user-injured"></i>
-													<span>My Patients</span>
-												</a>
-											</li>
-											<li>
-												<a href="schedule-timings.php">
-													<i class="fas fa-hourglass-start"></i>
-													<span>Schedule Timings</span>
-												</a>
-											</li>
-											<li>
-												<a href="invoices.php">
-													<i class="fas fa-file-invoice"></i>
-													<span>Invoices</span>
-												</a>
-											</li>
-											<li>
-												<a href="reviews.php">
-													<i class="fas fa-star"></i>
-													<span>Reviews</span>
-												</a>
-											</li>
-											<li>
-												<a href="chat-doctor.php">
-													<i class="fas fa-comments"></i>
-													<span>Message</span>
-													<small class="unread-msg">23</small>
-												</a>
-											</li>
-											<li>
-												<a href="doctor-profile-settings.php">
-													<i class="fas fa-user-cog"></i>
-													<span>Profile Settings</span>
-												</a>
-											</li>
-											<li>
-												<a href="social-media.php">
-													<i class="fas fa-share-alt"></i>
-													<span>Social Media</span>
-												</a>
-											</li>
-											<li>
-												<a href="doctor-change-password.php">
-													<i class="fas fa-lock"></i>
-													<span>Change Password</span>
-												</a>
-											</li>
-											<li>
-												<a href="index.php">
-													<i class="fas fa-sign-out-alt"></i>
-													<span>Logout</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
-								</div>
-							</div>
-							<!-- /Profile Sidebar -->
-							
+							<?php include_once('doctor-profile-side-bar.php');?>	
 						</div>
 						
 						<div class="col-md-7 col-lg-8 col-xl-9">
@@ -303,7 +222,7 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 																		<td class="text-center"><?php echo $row['amount'];?></td>
 																		<td class="text-right">
 																			<div class="table-action">
-																				<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+																				<a href="add-prescription.html?id=<?php echo $row['id'];?>" class="btn btn-sm bg-info-light">
 																					<i class="far fa-eye"></i> View
 																				</a>
 																				
@@ -318,6 +237,14 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 																	</tr>
 																	<?php 
 																	}
+																}else{
+
+																
+																	?>
+																	<tr>
+																		<th>No Appoinments</th>
+																	</tr>
+																	<?php 
 																}
 																	?>															
 																</tbody>

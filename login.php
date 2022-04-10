@@ -1,17 +1,11 @@
 <?php include_once('header.php'); 
  include_once('config/config.php'); 
-
-	
-	
-
-
     $message="";
     if(count($_POST)>0) {
         $result = mysqli_query($con,"SELECT * FROM users WHERE email='" . $_POST["email"] . "' and password = '". $_POST["password"]."'");
-        $row  = mysqli_fetch_array($result);
-        if(is_array($row)) {
-			echo '<pre>';
-		$_SESSION['login_data'] = ['role' => $row['role'] ,'id' => $row['id'], 'name' => $row['name']];
+        $row  = mysqli_fetch_assoc($result);
+        if(is_array($row)) {		
+		$_SESSION['login_data'] = ['role' => $row['role'] ,'id' => $row['id'] ,'data' => $row];
         } else {
          $message = "Invalid Username or Password!";
         }
@@ -33,14 +27,17 @@
 			}else{
       			header("Location: patient-dashboard.php");
 			}
-			
-			
 	
 		}
 	}
-	 
    }
 ?>
+		<?php
+		 if(isset($_GET['booking_message'])){
+		?>
+		<span><?php echo $_GET['booking_message'];?></span>
+		<?php 
+		}?>
 			
 			<!-- Page Content -->
 			<div class="content">

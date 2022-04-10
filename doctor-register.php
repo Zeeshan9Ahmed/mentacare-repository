@@ -1,5 +1,4 @@
 <?php include_once('header.php');
-   print_r($_SESSION);
 ?>
 <!-- Page Content -->
 <div class="content">
@@ -52,9 +51,13 @@
                            <input type="text" name="speciality" class="form-control floating" required>
                            <label class="focus-label">Speciality</label>
                         </div>
+                        <div class="form-group form-focus">
+                           <input type="text" name="occupation" class="form-control floating" required>
+                           <label class="focus-label">Occupation</label>
+                        </div>
 						<div class="form-group form-focus">
-                           <input type="text" name="doctor_id" class="form-control floating" required>
-                           <label class="focus-label">Doctor Id</label>
+                           <input type="number" name="fees" class="form-control floating" required>
+                           <label class="focus-label">Fees</label>
                         </div>
                         <div class="text-right">
                            <a class="forgot-link" href="login.php">Already have an account?</a>

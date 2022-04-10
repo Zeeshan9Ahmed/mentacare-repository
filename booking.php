@@ -3,13 +3,15 @@
 
 	include_once("header.php");
 	
+	if(!isset($_GET['id'])){
+		header("Location: index.php");	
+	}
 	if(isset($_GET['id'])){
-		$_SESSION['doctor_id'] = $_GET['id'];
-		
 		if(!isset($_SESSION['login_data'])){
-			header("Location: login.php?message=Please login first to make an Appoinment");
-		}
-		
+			$_SESSION['doctor_id'] = $_GET['id'];
+			header("Location: login.php?booking_message=Please login first to make an Appoinment");
+		}else{
+		}	
 			
 	}
 	

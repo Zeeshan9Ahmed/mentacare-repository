@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en">
 	
-<!-- doccure/edit-prescription.php  30 Nov 2019 04:12:36 GMT -->
+<!-- doccure/add-prescription.php  30 Nov 2019 04:12:37 GMT -->
 <head>
 		<meta charset="utf-8">
 		<title>Doccure</title>
@@ -167,7 +167,7 @@
 							<nav aria-label="breadcrumb" class="page-breadcrumb">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index-2.php">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Edit Prescription</li>
+									<li class="breadcrumb-item active" aria-current="page">Add Prescription</li>
 								</ol>
 							</nav>
 							<h2 class="breadcrumb-title">Add Prescription</h2>
@@ -217,7 +217,7 @@
 						<div class="col-md-7 col-lg-8 col-xl-9">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title mb-0">Edit Prescription</h4>
+									<h4 class="card-title mb-0">Add Prescription</h4>
 								</div>
 								<div class="card-body">
 									<div class="row">
@@ -238,7 +238,7 @@
 									
 									<!-- Add Item -->
 									<div class="add-more-item text-right">
-										<a href="#"><i class="fa fa-plus-circle"></i> Add More</a>
+										<a href="javascript:void(0);" id='preception'><i class="fas fa-plus-circle"></i> Add Item</a>
 									</div>
 									<!-- /Add Item -->
 									
@@ -247,89 +247,53 @@
 										<div class="card-body">
 											<div class="table-responsive">
 												<table class="table table-hover table-center">
-												<thead>
-													<tr>
-														<th style="width: 200px">Name</th>
-														<th style="width: 100px">Quantity</th>
-														<th style="width: 100px">Days</th>
-														<th style="width: 100px;">Time</th>
-														<th style="width: 80px;"></th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>
-															<input class="form-control" value="Amoxapine" type="text">
-														</td>
-														<td>
-															<input class="form-control" type="text" value="2">
-														</td>
-														<td>
-															<input class="form-control" value="2 Days" type="text">
-														</td>
-														<td>
-															<div class="form-check form-check-inline">
-																<label class="form-check-label">
-																	<input class="form-check-input" type="checkbox"> Morning
-																</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<label class="form-check-label">
-																	<input class="form-check-input" type="checkbox"> Afternoon
-																</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<label class="form-check-label">
-																	<input class="form-check-input" type="checkbox"> Evening
-																</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<label class="form-check-label">
-																	<input class="form-check-input" type="checkbox"> Night
-																</label>
-															</div>
-														</td>
-														<td>
-															<a href="#" class="btn bg-danger-light trash"><i class="far fa-trash-alt"></i></a>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<input class="form-control" type="text" value="Benazepril">
-														</td>
-														<td>
-															<input class="form-control" type="text" value="2">
-														</td>
-														<td>
-															<input class="form-control" value="1 Days" type="text">
-														</td>
-														<td>
-															<div class="form-check form-check-inline">
-																<label class="form-check-label">
-																	<input class="form-check-input" type="checkbox"> Morning
-																</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<label class="form-check-label">
-																	<input class="form-check-input" type="checkbox"> Afternoon
-																</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<label class="form-check-label">
-																	<input class="form-check-input" type="checkbox"> Evening
-																</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<label class="form-check-label">
-																	<input class="form-check-input" type="checkbox"> Night
-																</label>
-															</div>
-														</td>
-														<td>
-															<a href="#" class="btn bg-danger-light trash"><i class="far fa-trash-alt"></i></a>
-														</td>
-													</tr>
-												</tbody>
+													<thead>
+														<tr>
+															<th style="min-width: 200px">Name</th>
+															<th style="min-width: 100px">Quantity</th>
+															<th style="min-width: 100px">Days</th>
+															<th style="min-width: 100px;">Time</th>
+															<th style="min-width: 80px;"></th>
+														</tr>
+													</thead>
+													<tbody id="tbody">
+														<tr>
+															<td>
+																<input class="form-control" type="text">
+															</td>
+															<td>
+																<input class="form-control" type="text">
+															</td>
+															<td>
+																<input class="form-control" type="text">
+															</td>
+															<td>
+																<div class="form-check form-check-inline">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="checkbox"> Morning
+																	</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="checkbox"> Afternoon
+																	</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="checkbox"> Evening
+																	</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="checkbox"> Night
+																	</label>
+																</div>
+															</td>
+															<td>
+																<a href="#" class="btn bg-danger-light trash"><i class="far fa-trash-alt"></i></a>
+															</td>
+														</tr>
+													</tbody>
 												</table>
 											</div>
 										</div>
@@ -517,7 +481,17 @@
 	  
 		<!-- jQuery -->
 		<script src="assets/js/jquery.min.js"></script>
-		
+		<script>
+			$(document).ready(function(){
+				var preception =$("#preception");
+				preception.on('click',function(){
+					console.log('tr');
+					
+					$('#tbody tr:last').after('<tr>...</tr><tr>...</tr>');
+
+				});
+			});
+		</script>
 		<!-- Bootstrap Core JS -->
 		<script src="assets/js/popper.min.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
@@ -529,7 +503,8 @@
 		<!-- Custom JS -->
 		<script src="assets/js/script.js"></script>
 		
+		
 	</body>
 
-<!-- doccure/edit-prescription.php  30 Nov 2019 04:12:37 GMT -->
+<!-- doccure/add-prescription.php  30 Nov 2019 04:12:37 GMT -->
 </html>
