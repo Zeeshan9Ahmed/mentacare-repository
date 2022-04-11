@@ -21,7 +21,7 @@
 										</div>
 										
 										<!-- Register Form -->
-										<form action="config/register.php" method="post">
+										<form action="config/register.php"  method="post" enctype="multipart/form-data">
 										<input type="hidden" name="patient" />
 											<div class="form-group form-focus">
 												<input type="text" name="name" class="form-control floating" required>
@@ -36,6 +36,12 @@
 												<label class="focus-label" >Email</label>
 												<span class="text text-danger"><?php if(isset($_SESSION['emailErr'])){echo $_SESSION['emailErr']; $_SESSION['emailErr']='';}else{echo '';}?></span>
 											</div>
+											<div class="form-group form-focus">
+												<input type="file" name="fileToUpload" id="fileToUpload">
+												
+  												<span class="text text-danger"><?php if(isset($_SESSION[''])){echo $_SESSION['']; $_SESSION['']='';}else{echo '';}?></span>
+											</div>
+											
 											<div class="form-group form-focus">
 												<input type="password" name="password" class="form-control floating" required>
 												<label class="focus-label">Create Password</label>

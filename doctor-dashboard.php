@@ -9,10 +9,11 @@
 			
 		}
 	}
-
-$appointments = "select appointments.booking_date , appointments.booking_time,appointments.amount,appointments.status, users.id , users.name  from appointments INNER JOIN users on appointments.patient_id = users.id where doctor_id =
+	// print_r($_SESSION);
+// echo date("Y-m-d");
+$appointments = "select appointments.booking_date , appointments.booking_time,appointments.amount,appointments.status, users.avatar ,users.id , users.name  from appointments INNER JOIN users on appointments.patient_id = users.id where doctor_id =
 '".$_SESSION['login_data']['id']."' and appointments.booking_date > '".date("Y-m-d") ."'";
-
+echo $appointments;
 ?>
 			<!-- Breadcrumb -->
 			<div class="breadcrumb-bar">
@@ -44,7 +45,7 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 						
 						<div class="col-md-7 col-lg-8 col-xl-9">
 
-							<div class="row">
+							<!-- <div class="row">
 								<div class="col-md-12">
 									<div class="card dash-card">
 										<div class="card-body">
@@ -97,7 +98,7 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							
 							<div class="row">
 								<div class="col-md-12">
@@ -138,14 +139,16 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 																<tbody>
 																<?php 
 																	$result = $con->query($appointments);
+																	// print_r($result);
 																	if($result->num_rows > 0){
 																	while($row = $result->fetch_assoc()){
+																		
 																		
 																?>							
 																	<tr>
 																		<td>
 																			<h2 class="table-avatar">
-																				<a href="patient-profile.php" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient.jpg" alt="User Image"></a>
+																				<a href="patient-profile.php" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="config/uploads/<?php echo $row['avatar'];?>" alt="User Image"></a>
 																				<a href="patient-profile.php"><?php echo $row['name']; ?> </a>
 																			</h2>
 																		</td>

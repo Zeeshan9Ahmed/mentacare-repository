@@ -11,6 +11,7 @@
 			$_SESSION['doctor_id'] = $_GET['id'];
 			header("Location: login.php?booking_message=Please login first to make an Appoinment");
 		}else{
+			$_SESSION['doctor_id'] = $_GET['id'];
 		}	
 			
 	}

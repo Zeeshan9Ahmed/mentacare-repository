@@ -2,29 +2,7 @@
 
  include_once("header.php");
  include_once("config/config.php");
-	$password_validation = null;
-	if(isset($_POST["submit"])){
-		$new_password = $_POST['newpassword'];
-		$confrim_password = $_POST['confirmpassword'];
-		if($new_password !== $confrim_password){
-			$password_validation = 'Password and Confirm password should match!';
-		}else{
-
-		
-		$id =  $_SESSION["id"];
-	if (count($_POST) > 0) {
-			$result = mysqli_query($con, "SELECT * from users WHERE id='" . $id . "'");
-			$row = mysqli_fetch_array($result);
-			if ($_POST["oldpassword"] == $row["password"]) {
-				mysqli_query($con, "UPDATE users set password='" . $_POST["newpassword"] . "' WHERE id='" . $id . "'");
-				$succes_message = "password changes";
-			} else
-				$message = "Current Password is not correct";
-
-		}
-		}
-	}
-
+	
 ?>
 			
 			<!-- Breadcrumb -->
@@ -54,7 +32,7 @@
 							
 						
 						<div class="col-md-7 col-lg-8 col-xl-9">
-						<span class="badge badge-pill badge-success"><?php if(isset($succes_message)){echo $succes_message;}else{
+						<span class="badge badge-pill badge-success"><?php if(isset($_SESSION['suceess'])){echo $_SESSION['suceess']; unset($_SESSION['suceess']);}else{
 														echo '';
 													}?></span>
 	
@@ -64,12 +42,12 @@
 										<div class="col-md-12 col-lg-6">
 										
 											<!-- Change Password Form -->
-											<form method="post" action="">
+											<form method="post" action="config/UpdatePassword.php">
 											
 												<div class="form-group">
 													<label>Old Password</label>
 													<input type="password" name="oldpassword" class="form-control">
-													<span class="badge badge-pill badge-danger"><?php if(isset($message)){echo $message;}else{
+													<span class="badge badge-pill badge-danger"><?php if(isset($_SESSION['oldPassword'])){echo $_SESSION['oldPassword']; unset($_SESSION['oldPassword']);}else{
 														echo '';
 													}?></span>
 
@@ -77,7 +55,7 @@
 												<div class="form-group">
 													<label>New Password</label>
 													<input type="password" name="newpassword" class="form-control">
-													<span class="badge badge-pill badge-danger"><?php if(isset($password_validation)){echo $password_validation;}else{
+													<span class="badge badge-pill badge-danger"><?php if(isset($_SESSION['newPassword'])){echo $_SESSION['newPassword']; unset($_SESSION['newPassword']);}else{
 														echo '';
 													}?></span>
 												</div>

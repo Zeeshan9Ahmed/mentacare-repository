@@ -19,7 +19,7 @@ include_once('./config/config.php');
 	}else{
 		echo 'No user found';
 	}
-
+	
 ?>
 			
 			<!-- Breadcrumb -->
@@ -54,18 +54,20 @@ include_once('./config/config.php');
 								<div class="card-body">
 									
 									<!-- Profile Settings Form -->
-									<form method="POST" action="config/UserProfileUpdate.php">
+									<form method="POST" action="config/UserProfileUpdate.php" enctype="multipart/form-data">
 										<div class="row form-row">
 											<div class="col-12 col-md-12">
 												<div class="form-group">
 													<div class="change-avatar">
 														<div class="profile-img">
-															<img src="assets/img/patients/patient.jpg" alt="User Image">
+														<img src="config/uploads/<?php echo $_SESSION['login_data']['data']['avatar'];?>" alt="User Image">
 														</div>
 														<div class="upload-img">
 															<div class="change-photo-btn">
+																<input type="file" class="upload" name="fileToUpload" id="fileToUpload">
+
 																<span><i class="fa fa-upload"></i> Upload Photo</span>
-																<input type="file" class="upload">
+																
 															</div>
 															<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
 														</div>
@@ -100,12 +102,7 @@ include_once('./config/config.php');
 													<input type="text" name="phone_number" value="<?php echo $user['phone_number'];?>" class="form-control">
 												</div>
 											</div>
-											<div class="col-12">
-												<div class="form-group">
-												<label>Address</label>
-													<input type="text" name="address" class="form-control" value="<?php echo $user['address']?>">
-												</div>
-											</div>
+											
 											<div class="col-md-6">
 											<div class="form-group">
 												<label>your gender is :<?php echo $user['gender']; ?></label>

@@ -3,7 +3,8 @@
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+										<img src="config/uploads/<?php echo $_SESSION['login_data']['data']['avatar'];?>" alt="User Image">
+
 										</a>
 										<div class="profile-det-info">
 											<h3><?php echo $_SESSION['login_data']['data']['name'];?></h3>
@@ -24,7 +25,7 @@
 												</a>
 											</li>
 											<li>
-												<a href="appointments.php">
+												<a href="doctor-appointments.php">
 													<i class="fas fa-calendar-check"></i>
 													<span>Appointments</span>
 												</a>
@@ -41,25 +42,8 @@
 													<span>Schedule Timings</span>
 												</a>
 											</li>
-											<li>
-												<a href="invoices.php">
-													<i class="fas fa-file-invoice"></i>
-													<span>Invoices</span>
-												</a>
-											</li>
-											<li>
-												<a href="reviews.php">
-													<i class="fas fa-star"></i>
-													<span>Reviews</span>
-												</a>
-											</li>
-											<li>
-												<a href="chat-doctor.php">
-													<i class="fas fa-comments"></i>
-													<span>Message</span>
-													<small class="unread-msg">23</small>
-												</a>
-											</li>
+											
+											
 											<li>
 												<a href="doctor-profile-settings.php">
 													<i class="fas fa-user-cog"></i>

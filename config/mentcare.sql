@@ -82,7 +82,7 @@ CREATE TABLE `users` (
   `role` varchar(211) DEFAULT NULL,
   `name` varchar(211) DEFAULT NULL,
   `email` varchar(211) DEFAULT NULL,
-  `phone` varchar(211) DEFAULT NULL,
+  `avatar` varchar(211) DEFAULT NULL,
   `password` varchar(211) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
   `occupation` varchar(211) DEFAULT NULL,

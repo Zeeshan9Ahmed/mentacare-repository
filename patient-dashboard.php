@@ -12,7 +12,6 @@
 	'".$_SESSION['login_data']['id']."'";
 	$result = $con->query($appointments);
 	
-
 ?>
 
 			
@@ -103,7 +102,11 @@
 																</tr>
 																<?php 
 																}
-															}?>
+															}else{?>
+															<th class="text-align-center">No Appointment</th>
+															<?php 
+															}
+															?>
 																
 															</tbody>
 														</table>

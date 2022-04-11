@@ -6,9 +6,12 @@
     $emergency_number = $_POST['emergency_number'];
     $verification_code = $_POST['verification_code'];
     $user_id = $_POST['user_id'];
-    $lat = $_SESSION['lat'];
-    $lang = $_SESSION['lng'];
-    
+    $lat = '';
+    $lang = '';
+    if(isset($_SESSION['lat']) && isset($_SESSION['lng'])){
+        $lat = $_SESSION['lat'];
+        $lang = $_SESSION['lng'];
+    }
     if(empty($national_id)){
         $_SESSION['national_id'] = 'National Id field is required';
     }

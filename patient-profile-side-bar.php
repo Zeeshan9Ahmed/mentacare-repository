@@ -4,7 +4,7 @@
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="assets/img/patients/patient.jpg" alt="User Image">
+											<img src="config/uploads/<?php echo $_SESSION['login_data']['data']['avatar'];?>" alt="User Image">
 										</a>
 										<div class="profile-det-info">
 											<h3><?php echo $_SESSION['login_data']['data']['name'];?></h3>

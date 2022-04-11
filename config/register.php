@@ -2,6 +2,7 @@
 
 include_once('config.php');
 include_once('SendEmail.php');
+include_once('UploadImage.php');
     session_start();
     if(isset($_POST["patient"])){
         registerUser($_POST, $con,'patient');
@@ -13,15 +14,29 @@ include_once('SendEmail.php');
     }
 
     function registerUser($data,$con,$user_type){
+       
+        
         $password = $data['password'];
         $email = $data['email'];
         $name = $data['name'];
         $date_of_birth = $data['date_of_birth'];
         $gender = $data['gender'];
         $occupation = $data['occupation'];
-        $fees = $data['fees'];
+        $fees = '';
+        if($user_type == 'doctor'){
+            $fees = $data['fees'];
+        }       
+        
         $verification_code = '';
-
+        $image_name = '';
+        $uploadImage = imageValidateAndUpload($_FILES);
+        if(!is_array($uploadImage)){
+            echo 'suucess';
+       }else{
+        //    echo 'ssfdf';
+            $image_name = $uploadImage['image'];
+       }
+       
         $_SESSION['passwordErr'] = passwordValidate($password);
         $_SESSION['emailErr'] = emailValidate($email);
         if(! empty($_SESSION['passwordErr']) || ! empty($_SESSION['emailErr'])){
@@ -45,13 +60,13 @@ include_once('SendEmail.php');
                 $verification_code = random_int(100000, 999999);
 
                 if($user_type == 'patient'){
-                    $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,verification_code) values 
-                    ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$verification_code.'")';
+                    $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,verification_code,avatar) values 
+                    ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$verification_code.'","'.$image_name.'")';
                 }else{
                     if($user_type == 'doctor'){
                         $speciality = $data['speciality'];
-                        $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,speciality,verification_code,fees) values 
-                        ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$speciality.'","'.$verification_code.'","'.$fees.'")';
+                        $insert_query = 'Insert into users (name,role,date_of_birth,gender,email,password,occupation,speciality,verification_code,fees,avatar) values 
+                        ("'.$name.'","'.$user_type.'","'.$date_of_birth.'", "'.$gender.'","'.$email.'","'.$password.'","'.$occupation.'","'.$speciality.'","'.$verification_code.'","'.$fees.'","'.$image_name.'")';
                     }
                 }
                 if(!empty($insert_query)){
@@ -103,6 +118,9 @@ include_once('SendEmail.php');
         }
 
     }
+
+    
+    
     
 
 ?>

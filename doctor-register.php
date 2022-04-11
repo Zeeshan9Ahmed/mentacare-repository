@@ -16,7 +16,8 @@
                         <h3>Doctor Register <a href="register.php">Not a Doctor?</a></h3>
                      </div>
                      <!-- Register Form -->
-                     <form action="config/register.php" method="post">
+                     <form action="config/register.php"  method="post" enctype="multipart/form-data">
+
                         <input type="hidden" name="doctor" />
                         <div class="form-group form-focus">
                            <input type="text"  name="name" class="form-control floating" required>
@@ -29,6 +30,11 @@
 								   <span class="text text-danger"><?php if(isset($_SESSION['emailErr'])){echo $_SESSION['emailErr']; $_SESSION['emailErr']='';}else{echo '';}?></span>
 
                         </div>
+                        <div class="form-group form-focus">
+												<input type="file" name="fileToUpload" id="fileToUpload">
+												
+  												<span class="text text-danger"><?php if(isset($_SESSION[''])){echo $_SESSION['']; $_SESSION['']='';}else{echo '';}?></span>
+											</div>
 						<div class="form-group form-focus">
                            <input type="date" name ="date_of_birth" class="form-control floating"required >
                            <label class="focus-label" >D.O.B</label>
