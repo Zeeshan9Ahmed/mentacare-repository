@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2022 at 09:07 PM
+-- Generation Time: Apr 11, 2022 at 07:57 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -20,52 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `mentcare`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `appointments`
---
-
-CREATE TABLE `appointments` (
-  `id` int(11) NOT NULL,
-  `doctor_id` int(11) DEFAULT NULL,
-  `patient_id` int(11) DEFAULT NULL,
-  `booking_date` varchar(11) DEFAULT NULL,
-  `amount` varchar(211) DEFAULT NULL,
-  `booking_time` varchar(211) DEFAULT NULL,
-  `status` varchar(211) DEFAULT NULL,
-  `patient_phone` varchar(211) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `appointments`
---
-
-INSERT INTO `appointments` (`id`, `doctor_id`, `patient_id`, `booking_date`, `amount`, `booking_time`, `status`, `patient_phone`) VALUES
-(14, 24, 23, '2022-04-11', '68', '10:52:00pm', 'pending', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `clinics`
---
-
-CREATE TABLE `clinics` (
-  `id` int(11) NOT NULL,
-  `name` varchar(211) DEFAULT NULL,
-  `address` varchar(211) DEFAULT NULL,
-  `latitude` varchar(211) DEFAULT NULL,
-  `longitude` varchar(211) NOT NULL,
-  `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `clinics`
---
-
-INSERT INTO `clinics` (`id`, `name`, `address`, `latitude`, `longitude`, `user_id`) VALUES
-(1, 'clicnic here', 'aaaa', '123456', '12222334', 8);
 
 -- --------------------------------------------------------
 
@@ -109,18 +63,6 @@ INSERT INTO `users` (`id`, `role`, `name`, `email`, `avatar`, `password`, `date_
 --
 
 --
--- Indexes for table `appointments`
---
-ALTER TABLE `appointments`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `clinics`
---
-ALTER TABLE `clinics`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -129,18 +71,6 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `appointments`
---
-ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `clinics`
---
-ALTER TABLE `clinics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

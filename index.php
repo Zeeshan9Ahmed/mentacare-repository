@@ -31,7 +31,7 @@ include_once("config/config.php");
 			?>
 			<div class="col-sm-3">
 				<div class="card">
-				<img src="https://www.logogrand.com/sample_logo/images/3d/11.jpg" class="card-img-top" alt="...">
+				<img src="config/uploads/<?php echo $row['avatar'];?>" class="card-img-top" alt="...">
 
 				<div class="card-body">
 					<h5 class="card-title"><?php echo $row['name']?></h5>

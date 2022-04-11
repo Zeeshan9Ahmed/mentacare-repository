@@ -9,23 +9,23 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php'; 
 
 function sendVerificationCode(string $email, $code){
-    $phpmailer = new PHPMailer();
-    $phpmailer->isSMTP();
-    $phpmailer->Host = 'smtp.mailtrap.io';
-    $phpmailer->SMTPAuth = true;
-    $phpmailer->Port = 2525;
-    $phpmailer->Username = '15b41bac814bc1';
-    $phpmailer->Password = '3812a2482e6768';
+    // $phpmailer = new PHPMailer();
+    // $phpmailer->isSMTP();
+    // $phpmailer->Host = 'smtp.mailtrap.io';
+    // $phpmailer->SMTPAuth = true;
+    // $phpmailer->Port = 2525;
+    // $phpmailer->Username = '15b41bac814bc1';
+    // $phpmailer->Password = '3812a2482e6768';
 
-    // $mail = new PHPMailer; 
+    $phpmailer = new PHPMailer; 
     
-    // $mail->isSMTP();                      // Set mailer to use SMTP 
-    // $mail->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
-    // $mail->SMTPAuth = true;               // Enable SMTP authentication 
-    // $mail->Username = 'user@gmail.com';   // SMTP username 
-    // $mail->Password = 'gmail_password';   // SMTP password 
-    // $mail->SMTPSecure = 'tls';            // Enable TLS encryption, `ssl` also accepted 
-    // $mail->Port = 587;                    // TCP port to connect to 
+    $phpmailer->isSMTP();                      // Set mailer to use SMTP 
+    $phpmailer->Host = 'smtp.gmail.com';       // Specify main and backup SMTP servers 
+    $phpmailer->SMTPAuth = true;               // Enable SMTP authentication 
+    $phpmailer->Username = 'zeeshanindhar378@gmail.com';   // SMTP username 
+    $phpmailer->Password = '2k18swe131';   // SMTP password 
+    $phpmailer->SMTPSecure = 'tls';            // Enable TLS encryption, `ssl` also accepted 
+    $phpmailer->Port = 587;                    // TCP port to connect to 
     
     // Sender info 
     $phpmailer->setFrom('sender@codexworld.com', 'CodexWorld'); 

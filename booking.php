@@ -82,7 +82,7 @@
 												<div class="col-md-6 col-sm-12">
 													<div class="form-group card-label">
 														<label>Phone</label>
-														<input class="form-control" value="<?php echo $row['phone'];?>" name="phone" type="text">
+														<input class="form-control" value="<?php echo $row['phone_number'];?>" name="phone" type="text">
 													</div>
 												</div>
 												<div class="col-md-12 col-sm-12">
@@ -157,7 +157,7 @@
 											<h4><a href="doctor-profile.php"><?php echo $row['name'];?></a></h4>
 											<div class="rating">
 												
-												<span class=""><?php echo $row['phone'];?></span>
+												<span class=""><?php echo $row['phone_number'];?></span>
 											</div>
 											<div class="clinic-details">
 												<p class="doc-location"><i class="fas fa-map-marker-alt"></i> <?php echo $row['address'];?></p>

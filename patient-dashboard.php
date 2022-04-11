@@ -8,7 +8,7 @@
 			
 		}
 	}
-	$appointments = "select appointments.booking_date , appointments.booking_time,appointments.amount,appointments.status, users.id , users.name  from appointments INNER JOIN users on appointments.doctor_id = users.id where patient_id =
+	$appointments = "select appointments.booking_date , appointments.booking_time,appointments.amount,appointments.status, users.avatar ,users.id , users.name  from appointments INNER JOIN users on appointments.doctor_id = users.id where patient_id =
 	'".$_SESSION['login_data']['id']."'";
 	$result = $con->query($appointments);
 	
@@ -89,7 +89,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile.php" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="config/uploads/<?php echo $row['avatar'];?>" alt="User Image">
 																			</a>
 																			<a href="doctor-profile.php"><?php echo $row['name'];?> <span>Dental</span></a>
 																		</h2>

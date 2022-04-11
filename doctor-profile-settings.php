@@ -12,6 +12,7 @@ $singleRow = mysqli_fetch_row($result);
 $query1="select * from clinics where `user_id`= $id "; // Fetch all the data from the table customers
 $result1=mysqli_query($con,$query1);
 $singleRow1 = mysqli_fetch_row($result1);
+print_r($singleRow1);
 
 ?>
 			<!-- Breadcrumb -->
@@ -105,29 +106,7 @@ $singleRow1 = mysqli_fetch_row($result1);
 							<!-- /Basic Information -->
 							
 						
-							
-							<!-- Clinic Info -->
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">Clinic Info</h4>
-									<div class="row form-row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Clinic Name</label>
-												<input type="text" name="clinic-name" value="<?php echo $singleRow1['1']; ?>" name="clinic-name" class="form-control">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Clinic Address</label>
-												<input type="text" name="clinic-address" value="<?php echo $singleRow1['2']; ?>" name="clinic-address" class="form-control">
-											</div>
-										</div>
-									
-									</div>
-								</div>
-							</div>
-							<!-- /Clinic Info -->
+						
 
 						
 							

@@ -31,13 +31,13 @@
 												</a>
 											</li>
 											<li>
-												<a href="my-patients.php">
+												<a href="doctor-patients.php">
 													<i class="fas fa-user-injured"></i>
 													<span>My Patients</span>
 												</a>
 											</li>
 											<li>
-												<a href="schedule-timings.php">
+												<a href="doctor-schedule.php">
 													<i class="fas fa-hourglass-start"></i>
 													<span>Schedule Timings</span>
 												</a>
@@ -50,12 +50,7 @@
 													<span>Profile Settings</span>
 												</a>
 											</li>
-											<li>
-												<a href="social-media.php">
-													<i class="fas fa-share-alt"></i>
-													<span>Social Media</span>
-												</a>
-											</li>
+											
 											<li>
 												<a href="doctor-change-password.php">
 													<i class="fas fa-lock"></i>
