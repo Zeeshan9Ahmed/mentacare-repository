@@ -1,18 +1,26 @@
 <?php
 	include_once('header.php');
-?>			
+	include_once('config/config.php');
+	$query = "select * from users where role = 'doctor'";
+	$result = $con->query($query);
+	
+?>
+			
 			<!-- Breadcrumb -->
 			<div class="breadcrumb-bar">
 				<div class="container-fluid">
 					<div class="row align-items-center">
-						<div class="col-md-12 col-12">
+						<div class="col-md-8 col-12">
 							<nav aria-label="breadcrumb" class="page-breadcrumb">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index-2.php">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Add Prescription</li>
+									<li class="breadcrumb-item active" aria-current="page">Search</li>
 								</ol>
 							</nav>
-							<h2 class="breadcrumb-title">Add Prescription</h2>
+							
+						</div>
+						<div class="col-md-4 col-12 d-md-block d-none">
+							
 						</div>
 					</div>
 				</div>
@@ -24,84 +32,56 @@
 				<div class="container-fluid">
 
 					<div class="row">
-						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 						
-							<!-- Profile Widget -->
-							<div class="card widget-profile pat-widget-profile">
-								<div class="card-body">
-									<div class="pro-widget-content">
-										<div class="profile-info-widget">
-											<a href="#" class="booking-doc-img">
-												<img src="assets/img/patients/patient.jpg" alt="User Image">
-											</a>
-											<div class="profile-det-info">
-												<h3><a href="patient-profile.php">Richard Wilson</a></h3>
-												<div class="patient-details">
-													<h5><b>Patient ID :</b> PT0016</h5>
-													<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</h5>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="patient-info">
-										<ul>
-											<li>Phone <span>+1 952 001 8563</span></li>
-											<li>Age <span>38 Years, Male</span></li>
-											<li>Blood Group <span>AB+</span></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<!-- /Profile Widget -->
+						<?php 
+							include_once('patient-profile-side-bar.php');
+						?>
 							
-						</div>
-
-						<div class="col-md-7 col-lg-8 col-xl-9">
+						
+						<div class="col-md-12 col-lg-8 col-xl-9">
+							<?php
+								if($result->num_rows > 0){
+								while($row = $result->fetch_assoc()){
+							?>
+							<!-- Doctor Widget -->
 							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title mb-0">Add Prescription</h4>
-								</div>
 								<div class="card-body">
-									<div class="row">
-										<div class="col-sm-6">
-											<div class="biller-info">
-												<h4 class="d-block">Dr. Darren Elder</h4>
-												<span class="d-block text-sm text-muted">Dentist</span>
-												<span class="d-block text-sm text-muted">Newyork, United States</span>
+									<div class="doctor-widget">
+										<div class="doc-info-left">
+											<div class="doctor-img">
+												<a href="doctor-profile.php">
+													<img src="config/uploads/<?php echo $row['avatar'];?>" class="img-fluid" alt="User Image">
+												</a>
 											</div>
-										</div>
-										<div class="col-sm-6 text-sm-right">
-											<div class="billing-info">
-												<h4 class="d-block">1 November 2019</h4>
-												<span class="d-block text-muted">#INV0001</span>
-											</div>
-										</div>
-									</div>
-									<form method="post" action="config/save-prescription.php">
-									
-									<div class="form-group row">
-											<div class="col-md-12">
-												<textarea rows="5" cols="5" name="prescription" class="form-control" placeholder="Enter Prescription here"></textarea>
-											</div>
-										</div>
-									<input type="hidden" name="patient_id" value="<?php echo $_GET['id'];?>">
-									<input type="hidden" name="doctor_id" value="<?php echo $_SESSION['login_data']['id'];?>">
-									
-								
-									
-									<!-- Submit Section -->
-									<div class="row">
-										<div class="col-md-12">
-											<div class="submit-section">
-												<button type="submit" class="btn btn-primary submit-btn">Save</button>
+											<div class="doc-info-cont">
+												<h4 class="doc-name"><a href="doctor-profile.php"><?php echo $row['name'];?></a></h4>
+												<p class="doc-speciality"><?php echo $row['speciality'];?></p>
+												<h5 class="doc-department"><??></h5>
+												
+												
 												
 											</div>
 										</div>
+										<div class="doc-info-right">
+											
+											<div class="clinic-booking">
+												<a class="view-pro-btn" href="doctor-profile.php">View Profile</a>
+												<a class="apt-btn" href="booking.php">Book Appointment</a>
+											</div>
+										</div>
 									</div>
-									<!-- /Submit Section -->
-									</form>
 								</div>
 							</div>
+							<!-- /Doctor Widget -->
+								<?php
+								}
+							}
+								?>
+						
+
+						
+
+
 						</div>
 					</div>
 
@@ -248,7 +228,7 @@
 				
 			</footer>
 			<!-- /Footer -->
-		   
+
 		</div>
 		<!-- /Main Wrapper -->
 	  
@@ -263,11 +243,20 @@
         <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
         <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 		
+		<!-- Select2 JS -->
+		<script src="assets/plugins/select2/js/select2.min.js"></script>
+		
+		<!-- Datetimepicker JS -->
+		<script src="assets/js/moment.min.js"></script>
+		<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+		
+		<!-- Fancybox JS -->
+		<script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
+		
 		<!-- Custom JS -->
 		<script src="assets/js/script.js"></script>
 		
-		
 	</body>
 
-<!-- doccure/add-prescription.php  30 Nov 2019 04:12:37 GMT -->
+<!-- doccure/search.php  30 Nov 2019 04:12:16 GMT -->
 </html>

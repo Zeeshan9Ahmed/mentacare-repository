@@ -207,7 +207,7 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 																<tbody>
 															<?php 
 															$today_appointments = "select appointments.booking_date , appointments.booking_time,appointments.amount,appointments.status, users.id , users.name  from appointments INNER JOIN users on appointments.patient_id = users.id where doctor_id =
-															'".$_SESSION['login_data']['id']."' and appointments.booking_date  = '".date("Y-m-d") ."'";
+															'".$_SESSION['login_data']['id']."' and appointments.booking_date  Like '%".date("Y-m-d") ."%'";
 															$today = $con->query($today_appointments);
 															
 															?>		
@@ -230,11 +230,11 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 																		<td class="text-center"><?php echo $row['amount'];?></td>
 																		<td class="text-right">
 																			<div class="table-action">
-																				<a href="add-prescription.html?id=<?php echo $row['id'];?>" class="btn btn-sm bg-info-light">
+																				<a href="add-prescription.php?id=<?php echo $row['id'];?>" class="btn btn-sm bg-info-light">
 																					<i class="far fa-eye"></i> View
 																				</a>
 																				
-																				<a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+																				<a href="javascript:void(0);" id="accept" data-id="<?php echo $row['id'];?>" class="btn btn-sm bg-success-light">
 																					<i class="fas fa-check"></i> Accept
 																				</a>
 																				<a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
@@ -275,5 +275,24 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 
 			</div>		
 			<!-- /Page Content -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script>
+				$(document).ready(function(){
+					$('#accept').on('click' ,function(){
+						let id = $(this).attr('data-id');
+
+						$.ajax({
+						type: 'POST',
+						url: 'config/change-status.php',
+						data: { id: id },
+						success: function(data)
+						{
+							console.log(data);
+						}
+					});
+						console.log($(this).attr("data-id"));
+					});
+				});
+			</script>
    
 	<?php include_once('footer.php') ?>

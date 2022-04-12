@@ -38,6 +38,13 @@
 												</a>
 											</li>
 											<li>
+												<a href="search.php">
+													<i class="fas fa-bookmark"></i>
+													<span>Doctors</span>
+													
+												</a>
+											</li>
+											<li>
 												<a href="profile-settings.php">
 													<i class="fas fa-user-cog"></i>
 													<span>Profile Settings</span>
