@@ -9,8 +9,8 @@
 							
 								<!-- Footer Widget -->
 								<div class="footer-widget footer-about">
-									<div class="footer-logo">
-									<h3 style="color:white;">Mentcare</h3>
+																			<div class="footer-logo">
+<img src="assets/img/footer-logo.png" alt="logo">
 									</div>
 									<div class="footer-about-content">
 										
@@ -24,7 +24,7 @@
 							<div class="col-lg-6 col-md-6">
 							
 								<!-- Footer Widget -->
-								
+									
 							</div>
 							
 						</div>

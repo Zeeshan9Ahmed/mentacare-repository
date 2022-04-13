@@ -1,7 +1,11 @@
 <?php
     function imageValidateAndUpload($image){
         $target_dir = "uploads/";
-        $target_file = $target_dir . basename($image["fileToUpload"]["name"]);
+        $image_name = $image["fileToUpload"]["name"];
+        $target_file = $target_dir . basename($image_name);
+        if(empty($image_name)){
+            return "Profile Image is Required";
+        }
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         if ($_FILES["fileToUpload"]["size"] > 500000) {
             return "Sorry, your file is too large.";
@@ -15,7 +19,7 @@
             
         }
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            return ['image' => $image['fileToUpload']['name']];
+            return ['image' => $image_name];
         } else {
             return "Sorry, there was an error uploading your file.";
         }

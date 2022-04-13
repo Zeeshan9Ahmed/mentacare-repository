@@ -24,40 +24,40 @@
 										<form action="config/register.php"  method="post" enctype="multipart/form-data">
 										<input type="hidden" name="patient" />
 											<div class="form-group form-focus">
-												<input type="text" name="name" class="form-control floating" required>
+												<input type="text" name="name" value="<?php if(isset($_SESSION['data'])){echo $_SESSION['data']['name'];}?>" class="form-control floating" required>
 												<label class="focus-label" >Name</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="date" name ="date_of_birth" class="form-control floating" required>
+												<input type="date" name ="date_of_birth" class="form-control floating" value="<?php if(isset($_SESSION['data'])){echo $_SESSION['data']['date_of_birth'];}?>" required>
 												<label class="focus-label" >Date Of Birth</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="" name="email" class="form-control floating"required >
+												<input type="email" name="email" value="<?php if(isset($_SESSION['data'])){echo $_SESSION['data']['email'];}?>" class="form-control floating"required >
 												<label class="focus-label" >Email</label>
-												<span class="text text-danger"><?php if(isset($_SESSION['emailErr'])){echo $_SESSION['emailErr']; $_SESSION['emailErr']='';}else{echo '';}?></span>
+												<span class="text text-danger"><?php if(isset($_SESSION['emailErr'])){echo $_SESSION['emailErr']; unset($_SESSION['emailErr']);}else{echo '';}?></span>
 											</div>
 											<div class="form-group form-focus">
 												<input type="file" name="fileToUpload" id="fileToUpload">
 												
-  												<span class="text text-danger"><?php if(isset($_SESSION[''])){echo $_SESSION['']; $_SESSION['']='';}else{echo '';}?></span>
+  												<span class="text text-danger"><?php if(isset($_SESSION['imageErr'])){echo $_SESSION['imageErr']; unset($_SESSION['imageErr']);}else{echo '';}?></span>
 											</div>
 											
 											<div class="form-group form-focus">
 												<input type="password" name="password" class="form-control floating" required>
 												<label class="focus-label">Create Password</label>
-												<span class="text text-danger"><?php if(isset($_SESSION['passwordErr'])){echo $_SESSION['passwordErr']; $_SESSION['passwordErr']='';}else{echo '';}?></span>
+												<span class="text text-danger"><?php if(isset($_SESSION['passwordErr'])){echo $_SESSION['passwordErr']; unset($_SESSION['passwordErr']);}else{echo '';}?></span>
 											
 											</div>
 											<div class="form-group form-focus">
-												<input type="text" name="occupation" class="form-control floating" required>
+												<input type="text" name="occupation" value="<?php if(isset($_SESSION['data'])){echo $_SESSION['data']['occupation'];}?>" class="form-control floating" required>
 												<label class="focus-label">Occupation</label>
 											</div>
 											<div class="form-group form-focus">
 											<input type="radio" name="gender" value="male" />
-											<label class="focus-label">male</label>
+											<label class="focus-label" value="<?php if(isset($_SESSION['data']) ){ if($_SESSION['data']['gender']=='male'){echo "selected";}}?>">male</label>
 											</div>
 											<div class="form-group form-focus">
-											<input type="radio" name="gender" value="male" />
+											<input type="radio" name="gender" value="female" />
 											<label class="focus-label">male</label>
 											</div>
 											
@@ -89,7 +89,9 @@
 					</div>
 
 				</div>
-
+<?php
+	unset($_SESSION['data']);
+?>
 			</div>		
 			<!-- /Page Content -->
    

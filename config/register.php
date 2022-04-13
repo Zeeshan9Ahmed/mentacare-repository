@@ -26,21 +26,21 @@ include_once('UploadImage.php');
         if($user_type == 'doctor'){
             $fees = $data['fees'];
         }       
-        
+        $_SESSION['data']=['name' => $name,'email' =>$email,'gender' =>$gender,'date_of_birth' => $date_of_birth,'occupation' =>$occupation,'fees' =>$fees];
         $verification_code = '';
         $image_name = '';
+        
         $uploadImage = imageValidateAndUpload($_FILES);
+
         if(!is_array($uploadImage)){
-            echo 'suucess';
-       }else{
-        //    echo 'ssfdf';
+            $_SESSION['imageErr'] = $uploadImage;
+        }else{
             $image_name = $uploadImage['image'];
        }
        
         $_SESSION['passwordErr'] = passwordValidate($password);
         $_SESSION['emailErr'] = emailValidate($email);
-        if(! empty($_SESSION['passwordErr']) || ! empty($_SESSION['emailErr'])){
-            echo 'somet err is there';
+        if(! empty($_SESSION['passwordErr']) || ! empty($_SESSION['emailErr']) || ! empty($_SESSION['imageErr'])){
             if (isset($_SERVER["HTTP_REFERER"])) {
                 header("Location: " . $_SERVER["HTTP_REFERER"]);
             }
@@ -73,8 +73,10 @@ include_once('UploadImage.php');
                     if( $con->query($insert_query)){
                         sendVerificationCode($email, $verification_code);
                         $id=  mysqli_insert_id($con);
+                        unset($_SESSION['data']);
                         unset($_SESSION['passwordErr']);
                         unset($_SESSION['emailErr']);
+                        unset($_SESSION['imageErr']);
                         if($user_type == 'patient'){
                             header("Location: ../further-registration.php?id=".$id);
                         }else{

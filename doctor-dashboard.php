@@ -233,10 +233,21 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 																				<a href="add-prescription.php?id=<?php echo $row['id'];?>" class="btn btn-sm bg-info-light">
 																					<i class="far fa-eye"></i> View
 																				</a>
-																				
+																				<?php 
+																				if($row['status'] == 'pending'){
+																				?>
 																				<a href="javascript:void(0);" id="accept" data-id="<?php echo $row['id'];?>" class="btn btn-sm bg-success-light">
 																					<i class="fas fa-check"></i> Accept
 																				</a>
+																				<?php
+																				}else{
+																				?>
+																				<a href="javascript:void(0);" id="reject" data-id="<?php echo $row['id'];?>" class="btn btn-sm bg-danger-light">
+																					<i class="fas fa-times"></i> Reject
+																				</a>
+																				<?php
+																				}
+																				?>
 																				<a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
 																					<i class="fas fa-times"></i> Cancel
 																				</a>
@@ -278,19 +289,47 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 			<script src="assets/js/jquery.min.js"></script>
 			<script>
 				$(document).ready(function(){
+					
 					$('#accept').on('click' ,function(){
+						
 						let id = $(this).attr('data-id');
-
+						$(this).hide()
+						return '1';
 						$.ajax({
 						type: 'POST',
 						url: 'config/change-status.php',
 						data: { id: id },
 						success: function(data)
 						{
-							console.log(data);
+							
+							
 						}
 					});
-						console.log($(this).attr("data-id"));
+					});
+
+					$(document).on('click', "#reject" , function() {
+     					$(this).empty().append("Accept")
+						$(this).removeClass('bg-danger-light').addClass('bg-success-light');
+						$(this).attr("id","accept");
+
+						let id = $(this).attr('data-id');
+						return 'o';
+						$.ajax({
+						type: 'POST',
+						url: 'config/change-status.php',
+						data: { id: id },
+						success: function(data)
+						{
+							
+						}
+					});
+						
+					});
+					$(document).on('click', "#accept" , function() {
+     					$(this).empty().append("Reject")
+						$(this).removeClass('bg-success-light').addClass('bg-danger-light');
+						$(this).attr("id","reject");
+						let id = $(this).attr('data-id');
 					});
 				});
 			</script>

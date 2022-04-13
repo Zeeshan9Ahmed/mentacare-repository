@@ -538,6 +538,22 @@ include_once('header.php');
 	let day = '';
 	$(document).ready(function() {
 
+
+		loadSchedule(doctor_id)
+		function loadSchedule(id){
+			$.ajax({
+					type: 'POST',
+					url: 'config/schedule.php',
+					data: {
+						doctor_id: doctor_id,
+						type : "data"
+					},
+					success: function(data) {
+						console.log(typeof data)
+						$("#test").html(data)
+					}
+				});
+		}
 		$("#time li").on('click', function(e) {
 			day = e.target.getAttribute('data-value');
 			
