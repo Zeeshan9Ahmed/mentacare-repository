@@ -8,9 +8,10 @@
 			
 		}
 	}	
-	$prescriptions = "select users.name,users.avatar,users.speciality, users.id, prescription.prescription from prescription inner join users on prescription.doctor_id = users.id where patient_id = '".$_SESSION['login_data']['id']."'";
+	$prescriptions = "select users.name,users.avatar,users.speciality, users.id,prescription.pres_date ,prescription.prescription from prescription inner join users on prescription.doctor_id = users.id where patient_id = '".$_SESSION['login_data']['id']."'";
 	$result = $con->query($prescriptions);
 	
+
 ?>
 
 			
@@ -81,7 +82,7 @@
 																	while($row = $result->fetch_assoc()){
 																?>
 																<tr>
-																	<td>14 Nov 2019</td>
+																	<td><?php echo $row['pres_date'];?></td>
 																	<td><?php echo $row['prescription'];?></td>
 																	<td>
 																		<h2 class="table-avatar">
@@ -94,7 +95,11 @@
 																	
 																</tr>
 															<?php }
-																	}
+																	}else{
+															?>
+															<th>No Prescription</th>
+															<?php 
+																}
 															?>
 															</tbody>	
 														</table>

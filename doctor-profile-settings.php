@@ -140,9 +140,9 @@ print_r($singleRow1);
 							</div>
 							<!-- /Services and Specialization -->
 						
-							<div class="submit-section submit-btn-bottom">
+							<!-- <div class="submit-section submit-btn-bottom">
 								<button type="submit" name="update-doctor" class="btn btn-primary submit-btn">Save Changes</button>
-							</div>
+							</div> -->
 							</form>
 						</div>
 					</div>

@@ -36,14 +36,14 @@
 													<span>My Patients</span>
 												</a>
 											</li>
-											<li>
-												<a href="doctor-schedule.php">
+										<!-- 	<li>
+												<a href="schedule-timings.php">
 													<i class="fas fa-hourglass-start"></i>
 													<span>Schedule Timings</span>
 												</a>
 											</li>
 											
-											
+											 -->
 											<li>
 												<a href="doctor-profile-settings.php">
 													<i class="fas fa-user-cog"></i>

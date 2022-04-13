@@ -10,7 +10,7 @@
 								<!-- Footer Widget -->
 								<div class="footer-widget footer-about">
 									<div class="footer-logo">
-										<img src="assets/img/footer-logo.png" alt="logo">
+									<h3 style="color:white;">Mentcare</h3>
 									</div>
 									<div class="footer-about-content">
 										

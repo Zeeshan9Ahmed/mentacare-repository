@@ -539,7 +539,6 @@ include_once('header.php');
 	$(document).ready(function() {
 
 		$("#time li").on('click', function(e) {
-			
 			day = e.target.getAttribute('data-value');
 			
 		});
@@ -570,7 +569,7 @@ include_once('header.php');
 
 		});
 
-		$("#test").html("dsfakjdksjkjklk");
+		
 		
 	});
 </script>

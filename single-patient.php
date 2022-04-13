@@ -3,16 +3,17 @@
 	if(!isset($_SESSION['login_data'])){
 		header("Location: login.php");
 	}else{
-		if(($_SESSION['login_data']['role'] !== 'doctor')){
-			print_r('daf');
-			header("Location: login.php");
+		if(($_SESSION['login_data']['role'] == 'doctor'  || $_SESSION['login_data']['role'] == 'patient')){
 			
+			
+		}else
+		{
+			header("Location: login.php");
 		}
 	}
-	// print_r($_SESSION);
-// echo date("Y-m-d");
-$appointments = "select appointments.booking_date , appointments.booking_time,appointments.amount,appointments.status, users.avatar ,users.id , users.name  from appointments INNER JOIN users on appointments.patient_id = users.id where doctor_id =
-'".$_SESSION['login_data']['id']."'";
+	$query = "select * from users where users.id = '".$_GET['id']."'";
+	$result = $con->query($query);
+
 
 ?>
 			<!-- Breadcrumb -->
@@ -99,79 +100,48 @@ $appointments = "select appointments.booking_date , appointments.booking_time,ap
 									</div>
 								</div>
 							</div> -->
-							
+							<?php 
+							if($result->num_rows > 0){
+								while($row = $result->fetch_assoc()){
+							?>
 							<div class="row">
-								<div class="col-md-12">
-									<h4 class="mb-4">Patient Appoinment</h4>
-									<div class="appointment-tab">
-									
-										
-										<div class="tab-content">
-										<?php 
-											
-										?>
-											<!-- Upcoming Appointment Tab -->
-											<div class="tab-pane show active" id="upcoming-appointments">
-												<div class="card card-table mb-0">
-													<div class="card-body">
-														<div class="table-responsive">
-															<table class="table table-hover table-center mb-0">
-																<thead>
-																	<tr>
-																		<th>Patient Name</th>
-																		<th>Appt Date</th>
-																		<th>Time</th>
-																		
-																		<th class="text-center">Paid Amount</th>
-																		<th>Status</th>
-                                                                        <th></th>
-																	</tr>
-																</thead>
-																<tbody>
-																<?php 
-																	$result = $con->query($appointments);
-																	// print_r($result);
-																	if($result->num_rows > 0){
-																	while($row = $result->fetch_assoc()){
-																		
-																		
-																?>							
-																	<tr>
-																		<td>
-																			<h2 class="table-avatar">
-																				<a href="single-patient.php?id=<?php echo $row['id'];?>" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="config/uploads/<?php echo $row['avatar'];?>" alt="User Image"></a>
-																				<a href="single-patient.php?id=<?php echo $row['id'];?>"><?php echo $row['name']; ?> </a>
-																			</h2>
-																		</td>
-																		<td><?php echo $row['booking_date'];?> </td>
-																		<td><span class="d-block text-info"><?php echo $row['booking_time'];?></span></td>
-																		
-																		<td class="text-center"><?php echo $row['amount'];?></td>
-																		<td>Completed</td>
-																	</tr>
-																	<?php 
-																	}
-																}else{
-
-																	?>
-																	<th>No Appointments</th>
-																	<?php
-																}
-																	?>
-																</tbody>
-															</table>		
-														</div>
-													</div>
+						<div class="col-md-5 col-lg-12 col-xl-9 theiaStickySidebar">
+						
+							<!-- Profile Widget -->
+							<div class="card widget-profile pat-widget-profile">
+								<div class="card-body">
+									<div class="pro-widget-content">
+										<div class="profile-info-widget">
+											<a href="#" class="booking-doc-img">
+												<img src="config/uploads/<?php echo $row['avatar'];?>" alt="User Image">
+											</a>
+											<div class="profile-det-info">
+												<h3><a href="patient-profile.php"><?php echo $row['name'];?></a></h3>
+												<div class="patient-details">
+													<!-- <h5><b>Patient ID :</b> PT0016</h5> -->
+													<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> <?php echo $row['date_of_birth'];?></h5>
 												</div>
 											</div>
-											<!-- /Upcoming Appointment Tab -->
-									   
-											
 										</div>
+									</div>
+									<div class="patient-info">
+										<ul>
+											<li>Phone <span><?php echo $row['phone_number'];?></span></li>
+											<li>Email <span><?php echo $row['email'];?></span></li>
+											<li>Date Of Birth <span><?php echo $row['date_of_birth'];?></span></li>
+											<li>Gender <span><?php echo $row['gender'];?></span></li>
+										</ul>
 									</div>
 								</div>
 							</div>
+							<!-- /Profile Widget -->
+							
+						</div>
 
+						<?php
+					}
+						} 
+					?>
 						</div>
 					</div>
 

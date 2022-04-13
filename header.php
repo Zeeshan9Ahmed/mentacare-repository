@@ -49,7 +49,7 @@ session_start();
 							</span>
 						</a>
 						<a href="index.php" class="navbar-brand logo">
-							<img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+						<h3>Mentcare</h3>
 						</a>
 					</div>
 					<div class="main-menu-wrapper">
